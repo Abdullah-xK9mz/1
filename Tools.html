@@ -138,6 +138,7 @@
       gap: 12px;
       backdrop-filter: blur(10px);
       transition: all 0.2s ease;
+      cursor: pointer;
     }
     .tool-card:hover {
       border-color: var(--primary-cyan);
@@ -178,10 +179,7 @@
       gap: 5px;
       align-self: flex-start;
       padding: 0;
-      transition: opacity 0.2s;
-    }
-    .use-tool-btn:hover {
-      opacity: 0.8;
+      pointer-events: none; /* لتفادي التعارض وجعل النقر يمرر للبطاقة بالكامل */
     }
 
     .nav-home-card {
@@ -512,7 +510,7 @@
   </div>
 
   <div class="tools-grid" id="toolsNav">
-    <div class="tool-card" data-category="images" data-keywords="تحويل الصور و ICO صيغ الصور أبعاد آيقونات البرامج والمواقع">
+    <div class="tool-card" data-category="images" data-keywords="تحويل الصور و ICO صيغ الصور أبعاد آيقونات البرامج والمواقع" data-tool="converter">
       <div class="tool-card-content">
         <div class="tool-card-header">
           <span class="icon">🖼️</span>
@@ -520,10 +518,10 @@
         </div>
         <p>تحويل صيغ الصور وتغيير أبعادها</p>
       </div>
-      <button class="use-tool-btn" data-tool="converter">استخدام الأداة ←</button>
+      <button class="use-tool-btn">استخدام الأداة ←</button>
     </div>
 
-    <div class="tool-card" data-category="conv" data-keywords="تحويل وحدات الطول الوزن درجة الحرارة">
+    <div class="tool-card" data-category="conv" data-keywords="تحويل وحدات الطول الوزن درجة الحرارة" data-tool="units">
       <div class="tool-card-content">
         <div class="tool-card-header">
           <span class="icon">📐</span>
@@ -531,10 +529,10 @@
         </div>
         <p>الطول والوزن ودرجة الحرارة</p>
       </div>
-      <button class="use-tool-btn" data-tool="units">استخدام الأداة ←</button>
+      <button class="use-tool-btn">استخدام الأداة ←</button>
     </div>
 
-    <div class="tool-card" data-category="codes" data-keywords="تحويل نص إلى QR رمز رابط">
+    <div class="tool-card" data-category="codes" data-keywords="تحويل نص إلى QR رمز رابط" data-tool="qr">
       <div class="tool-card-content">
         <div class="tool-card-header">
           <span class="icon">▦</span>
@@ -542,10 +540,10 @@
         </div>
         <p>إنشاء رمز QR من نص أو رابط</p>
       </div>
-      <button class="use-tool-btn" data-tool="qr">استخدام الأداة ←</button>
+      <button class="use-tool-btn">استخدام الأداة ←</button>
     </div>
 
-    <div class="tool-card" data-category="codes" data-keywords="مولّد البار كود الشريطي أكواد">
+    <div class="tool-card" data-category="codes" data-keywords="مولّد البار كود الشريطي أكواد" data-tool="barcode">
       <div class="tool-card-content">
         <div class="tool-card-header">
           <span class="icon">📊</span>
@@ -553,10 +551,10 @@
         </div>
         <p>إنشاء كافة أنواع أكواد البار كود الشريطية</p>
       </div>
-      <button class="use-tool-btn" data-tool="barcode">استخدام الأداة ←</button>
+      <button class="use-tool-btn">استخدام الأداة ←</button>
     </div>
 
-    <div class="tool-card" data-category="calc" data-keywords="مؤشر كتلة الجسم BMI حساب الوزن والطول">
+    <div class="tool-card" data-category="calc" data-keywords="مؤشر كتلة الجسم BMI حساب الوزن والطول" data-tool="bmi">
       <div class="tool-card-content">
         <div class="tool-card-header">
           <span class="icon">⚖️</span>
@@ -564,10 +562,10 @@
         </div>
         <p>حساب مؤشر كتلة الجسم والوزن المثالي</p>
       </div>
-      <button class="use-tool-btn" data-tool="bmi">استخدام الأداة ←</button>
+      <button class="use-tool-btn">استخدام الأداة ←</button>
     </div>
 
-    <div class="tool-card" data-category="codes" data-keywords="مولّد كلمات السر قوية وعشوائية أمان">
+    <div class="tool-card" data-category="codes" data-keywords="مولّد كلمات السر قوية وعشوائية أمان" data-tool="password">
       <div class="tool-card-content">
         <div class="tool-card-header">
           <span class="icon">🔐</span>
@@ -575,10 +573,10 @@
         </div>
         <p>توليد كلمات سر قوية وعشوائية</p>
       </div>
-      <button class="use-tool-btn" data-tool="password">استخدام الأداة ←</button>
+      <button class="use-tool-btn">استخدام الأداة ←</button>
     </div>
 
-    <div class="tool-card" data-category="calc" data-keywords="حاسبة العمر تاريخ الميلاد بالتفصيل">
+    <div class="tool-card" data-category="calc" data-keywords="حاسبة العمر تاريخ الميلاد بالتفصيل" data-tool="age">
       <div class="tool-card-content">
         <div class="tool-card-header">
           <span class="icon">🎂</span>
@@ -586,10 +584,10 @@
         </div>
         <p>احسب عمرك بالتفصيل (سنة، شهر، يوم)</p>
       </div>
-      <button class="use-tool-btn" data-tool="age">استخدام الأداة ←</button>
+      <button class="use-tool-btn">استخدام الأداة ←</button>
     </div>
 
-    <div class="tool-card" data-category="calc" data-keywords="فرق التواريخ حساب الفارق بين تاريخين">
+    <div class="tool-card" data-category="calc" data-keywords="فرق التواريخ حساب الفارق بين تاريخين" data-tool="date-diff">
       <div class="tool-card-content">
         <div class="tool-card-header">
           <span class="icon">📅</span>
@@ -597,7 +595,7 @@
         </div>
         <p>حساب الفارق المدقق بين أي تاريخين</p>
       </div>
-      <button class="use-tool-btn" data-tool="date-diff">استخدام الأداة ←</button>
+      <button class="use-tool-btn">استخدام الأداة ←</button>
     </div>
 
     <a href="index.html" class="nav-home-card">
@@ -870,9 +868,11 @@
   const categoriesContainer = document.getElementById('categoriesContainer');
   const workbench = document.getElementById('workbench');
 
-  document.querySelectorAll('.use-tool-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const toolId = btn.dataset.tool;
+  document.querySelectorAll('.tool-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const toolId = card.dataset.tool;
+      if (!toolId) return;
+      
       document.querySelectorAll('.tool-section').forEach(sec => sec.classList.remove('active'));
       document.getElementById('tool-' + toolId).classList.add('active');
 
