@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ورشة الادوات — أدوات رقمية صغيرة</title>
+  <!-- مكتبة QR -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+  <!-- مكتبة JsBarcode -->
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
+    :root {
+      --bg-dark: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --primary-cyan: #00f2fe;
+      --secondary-blue: #4facfe;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --danger: #ef4444;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Cairo', sans-serif;
+    }
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(0, 242, 254, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(79, 172, 254, 0.15) 0px, transparent 50%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    .container {
+      width: 100%;
+      max-width: 900px;
+    }
+    /* ===== Header ===== */
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary-cyan), var(--secondary-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+    header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    /* ===== Grid Nav ===== */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    .tool-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px 15px;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .tool-btn .icon {
+      font-size: 1.8rem;
+    }
+    .tool-btn span {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    .tool-btn:hover {
+      border-color: var(--primary-cyan);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 242, 254, 0.15);
+    }
+
+    .nav-home-btn {
+      grid-column: span 2;
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(79, 172, 254, 0.15));
+      border: 1px solid rgba(0, 242, 254, 0.4);
+      border-radius: 12px;
+      padding: 20px 15px;
+      color: var(--primary-cyan);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .nav-home-btn .icon {
+      font-size: 1.8rem;
+    }
+    .nav-home-btn span {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .nav-home-btn:hover {
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.25), rgba(79, 172, 254, 0.25));
+      border-color: var(--primary-cyan);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 242, 254, 0.3);
+      color: #fff;
+    }
+
+    @media (max-width: 650px) {
+      .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .tool-btn {
+        padding: 12px 8px;
+        gap: 4px;
+      }
+      .tool-btn .icon {
+        font-size: 1.3rem;
+      }
+      .tool-btn span {
+        font-size: 0.8rem;
+      }
+      .nav-home-btn {
+        grid-column: span 2;
+        padding: 14px 10px;
+        gap: 8px;
+      }
+      .nav-home-btn .icon {
+        font-size: 1.4rem;
+      }
+      .nav-home-btn span {
+        font-size: 0.9rem;
+      }
+    }
+
+    /* ===== Main Panel / Workbench ===== */
+    .workbench {
+      display: none;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 25px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    .back-btn {
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      transition: all 0.2s;
+    }
+    .back-btn:hover {
+      color: var(--text-main);
+      border-color: var(--primary-cyan);
+    }
+    .panel-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary-cyan);
+      margin-bottom: 5px;
+    }
+    .panel-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+    .tool-section {
+      display: none;
+    }
+    .tool-section.active {
+      display: block;
+    }
+    /* ===== Form Controls ===== */
+    label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin: 12px 0 6px;
+    }
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="number"], .en-num {
+      font-family: Arial, Roboto, 'Segoe UI', sans-serif !important;
+      font-variant-numeric: lining-nums proportional-nums !important;
+      font-feature-settings: "lnum" 1 !important;
+      direction: ltr !important;
+      unicode-bidi: isolate !important;
+      display: inline-block;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--primary-cyan);
+    }
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+    .form-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .form-row > * {
+      flex: 1;
+      min-width: 140px;
+    }
+    .action-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary-cyan), var(--secondary-blue));
+      color: #0f172a;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: opacity 0.2s;
+    }
+    .action-btn:hover {
+      opacity: 0.9;
+    }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+    }
+    .btn-ghost:hover {
+      border-color: var(--primary-cyan);
+    }
+    .result-box {
+      margin-top: 18px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px dashed var(--primary-cyan);
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary-cyan);
+      word-break: break-all;
+    }
+
+    .dropzone {
+      border: 2px dashed var(--card-border);
+      border-radius: 8px;
+      padding: 25px 15px;
+      text-align: center;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .dropzone:hover {
+      border-color: var(--primary-cyan);
+      color: var(--text-main);
+    }
+    #qrOutput {
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
+    }
+    #qrCanvas {
+      border: 8px solid #fff;
+      border-radius: 8px;
+      display: none;
+    }
+    .barcode-output {
+      display: flex;
+      justify-content: center;
+      background: #ffffff;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+      overflow-x: auto;
+    }
+
+    /* ===== عناصر منتقي التاريخ المخصص ===== */
+    .custom-date-trigger {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .custom-picker-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+    }
+    .custom-picker-card {
+      background: #1e293b;
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 20px;
+      width: 100%;
+      max-width: 360px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .picker-columns {
+      display: flex;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .picker-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.5);
+      padding: 10px 5px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+    }
+    .picker-col label {
+      font-size: 0.8rem;
+      color: var(--primary-cyan);
+      margin: 0 0 8px 0;
+      font-weight: bold;
+    }
+    .step-btn {
+      width: 100%;
+      height: 38px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      color: var(--primary-cyan);
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-btn:active {
+      background: var(--primary-cyan);
+      color: #0f172a;
+    }
+    .picker-col input {
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 8px 0;
+      padding: 8px 4px;
+      border-radius: 6px;
+    }
+    .picker-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 15px;
+    }
+    .picker-actions button {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-set { background: var(--primary-cyan); color: #0f172a; }
+    .btn-clear { background: rgba(255, 255, 255, 0.1); color: var(--text-main); }
+    .btn-cancel { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.4) !important; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header id="mainHeader">
+    <h1>ورشة الادوات</h1>
+    <p>أدوات رقمية سريعة ومفيدة في مكان واحد</p>
+  </header>
+
+  <nav class="tools-grid" id="toolsNav">
+    <button class="tool-btn" data-tool="barcode"><span class="icon">📊</span><span>مولّد البار كود</span></button>
+    <button class="tool-btn" data-tool="qr"><span class="icon">▦</span><span>نص إلى QR</span></button>
+    <button class="tool-btn" data-tool="converter"><span class="icon">🖼️</span><span>تحويل صور و ICO</span></button>
+    <button class="tool-btn" data-tool="units"><span class="icon">📐</span><span>تحويل وحدات</span></button>
+    <button class="tool-btn" data-tool="bmi"><span class="icon">⚖️</span><span>مؤشر كتلة الجسم</span></button>
+    <button class="tool-btn" data-tool="password"><span class="icon">🔐</span><span>مولّد كلمات السر</span></button>
+    <button class="tool-btn" data-tool="age"><span class="icon">🎂</span><span>حاسبة العمر</span></button>
+    <button class="tool-btn" data-tool="date-diff"><span class="icon">📅</span><span>فرق التواريخ</span></button>
+    <a href="index.html" class="nav-home-btn"><span class="icon">🏠</span><span>العودة للموقع الرئيسي</span></a>
+  </nav>
+
+  <main class="workbench" id="workbench">
+    <button class="back-btn" onclick="showHome()">→ العودة للأدوات</button>
+
+    <!-- تحويل الصور وتوليد الـ ICO -->
+    <section class="tool-section" id="tool-converter">
+      <h2 class="panel-title">محول الصور وتوليد ملفات ICO</h2>
+      <p class="panel-desc">تحويل صيغ الصور وتغيير أبعادها أو إنشائها بصيغة آيقونات البرامج والمواقع (.ico)</p>
+      
+      <div class="dropzone" onclick="document.getElementById('imgConverterInput').click()">
+        <span class="icon" style="font-size: 2rem;">📁</span>
+        <p id="imgConvLabel" style="margin-top: 6px;">اضغط هنا لاختيار الصورة</p>
+        <input type="file" id="imgConverterInput" accept="image/*" style="display:none;" onchange="handleConverterImageSelect(event)">
+      </div>
+
+      <div id="imgConvPreviewBox" style="display:none; text-align:center; margin-top:15px;">
+        <img id="imgConvPreview" src="" alt="المعاينة" style="max-height: 150px; border-radius: 8px; border: 1px solid var(--card-border);">
+      </div>
+
+      <div class="form-row" style="margin-top: 15px;">
+        <div>
+          <label>الصيغة المطلوبة</label>
+          <select id="imgTargetFormat" onchange="toggleIcoSizes()">
+            <option value="ico">ICO (آيقونة برامج ومواقع)</option>
+            <option value="png">PNG</option>
+            <option value="jpeg">JPG / JPEG</option>
+            <option value="webp">WEBP</option>
+          </select>
+        </div>
+        <div id="icoSizeGroup">
+          <label>حجم الأيقونة (ICO)</label>
+          <select id="icoDimension" class="en-num">
+            <option value="16">16 x 16 (Favicon صغير)</option>
+            <option value="32" selected>32 x 32 (Favicon قياسي)</option>
+            <option value="48">48 x 48 (آيقونة سطح المكتب)</option>
+            <option value="64">64 x 64 (آيقونة متوسطة)</option>
+            <option value="128">128 x 128 (آيقونة كبيرة)</option>
+            <option value="256">256 x 256 (أقصى دقة ICO)</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="action-btn" onclick="processImageConversion()">تحويل وتحميل الصورة 🚀</button>
+    </section>
+
+    <!-- تحويل الوحدات -->
+    <section class="tool-section" id="tool-units">
+      <h2 class="panel-title">تحويل الوحدات</h2>
+      <p class="panel-desc">تحويل الطول، الوزن، ودرجة الحرارة</p>
+      <label>نوع الوحدة</label>
+      <select id="unitType" onchange="setupUnitOptions()">
+        <option value="length">الطول</option>
+        <option value="weight">الوزن</option>
+        <option value="temp">درجة الحرارة</option>
+      </select>
+      <div class="form-row" style="margin-top: 10px;">
+        <div>
+          <label>من</label>
+          <input type="number" id="unitFromInput" class="en-num" value="1" oninput="convertUnits('from')">
+          <select id="unitFromSelect" onchange="convertUnits('from')" style="margin-top: 5px;"></select>
+        </div>
+        <div>
+          <label>إلى</label>
+          <input type="number" id="unitToInput" class="en-num" oninput="convertUnits('to')">
+          <select id="unitToSelect" onchange="convertUnits('from')" style="margin-top: 5px;"></select>
+        </div>
+      </div>
+    </section>
+
+    <!-- QR Code -->
+    <section class="tool-section" id="tool-qr">
+      <h2 class="panel-title">تحويل نص إلى QR</h2>
+      <p class="panel-desc">أنشئ رمز QR لأي رابط أو نص عربي أو إنجليزي</p>
+      <label>النص أو الرابط</label>
+      <textarea id="qrTextInput" placeholder="اكتب النص هنا..."></textarea>
+      <button class="action-btn" onclick="generateQR()">توليد الرمز</button>
+      <div id="qrOutput">
+        <canvas id="qrCanvas"></canvas>
+      </div>
+    </section>
+
+    <!-- مولد كلمات السر -->
+    <section class="tool-section" id="tool-password">
+      <h2 class="panel-title">مولّد كلمات السر</h2>
+      <p class="panel-desc">توليد كلمات سر قوية وعشوائية</p>
+      <label>الطول: <span id="passLenDisplay" class="en-num" dir="ltr">16</span></label>
+      <input type="range" id="passLen" min="6" max="32" value="16" style="width: 100%; accent-color: var(--primary-cyan);" oninput="document.getElementById('passLenDisplay').textContent = toEnNums(this.value); generatePassword();">
+      <div class="result-box en-num" id="passOutput" dir="ltr">------</div>
+      <button class="action-btn" onclick="generatePassword()">توليد جديدة</button>
+      <button class="action-btn btn-ghost" onclick="copyPassword()" style="margin-top: 8px;">نسخ كلمة السر</button>
+    </section>
+
+    <!-- حاسبة الكتلة -->
+    <section class="tool-section" id="tool-bmi">
+      <h2 class="panel-title">حاسبة كتلة الجسم (BMI)</h2>
+      <p class="panel-desc">حساب مؤشر كتلة الجسم</p>
+      <div class="form-row">
+        <div>
+          <label>الوزن (كجم)</label>
+          <input type="number" id="bmiWeight" class="en-num" value="70" oninput="calculateBMI()">
+        </div>
+        <div>
+          <label>الطول (سم)</label>
+          <input type="number" id="bmiHeight" class="en-num" value="170" oninput="calculateBMI()">
+        </div>
+      </div>
+      <div class="result-box" id="bmiOutput">أدخل بياناتك</div>
+    </section>
+
+    <!-- حاسبة العمر -->
+    <section class="tool-section" id="tool-age">
+      <h2 class="panel-title">حاسبة العمر الدقيقة</h2>
+      <p class="panel-desc">احسب عمرك بالتفصيل (سنة، شهر، يوم)</p>
+      <label>تاريخ الميلاد</label>
+      
+      <div class="custom-date-trigger" onclick="openPickerModal('age')">
+        <input type="text" id="ageInputDisplay" class="en-num" readonly placeholder="اختر تاريخ الميلاد..." style="cursor: pointer;">
+      </div>
+
+      <div class="result-box" id="ageOutput">اختر تاريخ ميلادك</div>
+    </section>
+
+    <!-- حاسبة الفرق بين تاريخين -->
+    <section class="tool-section" id="tool-date-diff">
+      <h2 class="panel-title">حاسبة الفرق بين تاريخين</h2>
+      <p class="panel-desc">حساب الفارق المدقق بالسنين والأشهر والأيام بين أي تاريخين</p>
+
+      <div class="form-row">
+        <div>
+          <label>التاريخ الأول</label>
+          <div class="custom-date-trigger" onclick="openPickerModal('diffStart')">
+            <input type="text" id="diffStartDisplay" class="en-num" readonly placeholder="اختر التاريخ الأول..." style="cursor: pointer;">
+          </div>
+        </div>
+        <div>
+          <label>التاريخ الثاني</label>
+          <div class="custom-date-trigger" onclick="openPickerModal('diffEnd')">
+            <input type="text" id="diffEndDisplay" class="en-num" readonly placeholder="اختر التاريخ الثاني..." style="cursor: pointer;">
+          </div>
+        </div>
+      </div>
+
+      <div class="result-box" id="dateDiffOutput" style="font-size: 0.95rem; text-align: right; line-height: 1.8;">
+        اختر التاريخين لرؤية الفارق التفصيلي
+      </div>
+    </section>
+
+    <!-- النافذة المنبثقة المشتركة لاختيار التاريخ -->
+    <div class="custom-picker-modal" id="pickerModal">
+      <div class="custom-picker-card">
+        <h3 id="pickerModalTitle" style="text-align: center; color: var(--primary-cyan); font-size: 1.1rem;">تحديد التاريخ</h3>
+        <div class="picker-columns">
+          <div class="picker-col">
+            <label>اليوم</label>
+            <button class="step-btn" onclick="adjustPickerVal('day', 1)">+</button>
+            <input type="number" id="pDay" class="en-num" min="1" max="31" value="1">
+            <button class="step-btn" onclick="adjustPickerVal('day', -1)">-</button>
+          </div>
+          <div class="picker-col">
+            <label>الشهر</label>
+            <button class="step-btn" onclick="adjustPickerVal('month', 1)">+</button>
+            <input type="number" id="pMonth" class="en-num" min="1" max="12" value="1">
+            <button class="step-btn" onclick="adjustPickerVal('month', -1)">-</button>
+          </div>
+          <div class="picker-col">
+            <label>السنة</label>
+            <button class="step-btn" onclick="adjustPickerVal('year', 1)">+</button>
+            <input type="number" id="pYear" class="en-num" min="1900" max="2099" value="2000">
+            <button class="step-btn" onclick="adjustPickerVal('year', -1)">-</button>
+          </div>
+        </div>
+        <div class="picker-actions">
+          <button class="btn-cancel" onclick="closePickerModal()">إلغاء</button>
+          <button class="btn-clear" onclick="clearPickerDate()">محو</button>
+          <button class="btn-set" onclick="confirmPickerDate()">تعيين</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- مولد البار كود الشريطي -->
+    <section class="tool-section" id="tool-barcode">
+      <h2 class="panel-title">مولّد البار كود الشريطي</h2>
+      <p class="panel-desc">إنشاء كافة أنواع أكواد البار كود الشريطية المستطيلة</p>
+      
+      <label>اختر نوع البار كود</label>
+      <select id="barcodeFormat" class="en-num">
+        <option value="CODE128">CODE 128 (شامل: أرقام، حروف، رموز)</option>
+        <option value="EAN13">EAN-13 (منتجات تجارية - 13 رقم)</option>
+        <option value="EAN8">EAN-8 (منتجات صغيرة - 8 أرقام)</option>
+        <option value="UPC">UPC-A (منتجات - 12 رقم)</option>
+        <option value="UPCE">UPC-E (منتجات مصغرة - 6 إلى 8 أرقام)</option>
+        <option value="CODE39">CODE 39 (أرقام وحروف كبيرة)</option>
+        <option value="CODE93">CODE 93 (كود 93 مدمج)</option>
+        <option value="ITF14">ITF (تغليف وشحن - أرقام زوجية)</option>
+        <option value="CODABAR">CODABAR (مكتبات وبنوك)</option>
+      </select>
+
+      <label>الكود أو الرقم المراد تشفيره</label>
+      <input type="text" id="barcodeInput" class="en-num" value="123456789012" placeholder="أدخل النص أو الرقم هنا...">
+
+      <button class="action-btn" onclick="generateBarcode()">إنشاء البار كود</button>
+
+      <div class="barcode-output">
+        <svg id="barcodeCanvas"></svg>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  /* ===== تحويل الأرقام إلى إنجليزية إجبارياً ===== */
+  function toEnNums(str) {
+    if (str === null || str === undefined) return '';
+    return String(str).replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));
+  }
+
+  /* ===== Navigation ===== */
+  const toolsNav = document.getElementById('toolsNav');
+  const mainHeader = document.getElementById('mainHeader');
+  const workbench = document.getElementById('workbench');
+
+  document.querySelectorAll('.tool-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const toolId = btn.dataset.tool;
+      document.querySelectorAll('.tool-section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById('tool-' + toolId).classList.add('active');
+
+      toolsNav.style.display = 'none';
+      mainHeader.style.display = 'none';
+      workbench.style.display = 'block';
+
+      if (toolId === 'barcode') {
+        generateBarcode();
+      }
+    });
+  });
+
+  function showHome() {
+    workbench.style.display = 'none';
+    toolsNav.style.display = 'grid';
+    mainHeader.style.display = 'block';
+  }
+
+  /* ===== 1. Image & ICO Converter ===== */
+  let loadedConverterImg = null;
+
+  function handleConverterImageSelect(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    document.getElementById('imgConvLabel').innerText = "تم اختيار: " + file.name;
+
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      const img = new Image();
+      img.onload = function() {
+        loadedConverterImg = img;
+        document.getElementById('imgConvPreview').src = img.src;
+        document.getElementById('imgConvPreviewBox').style.display = 'block';
+      };
+      img.src = evt.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function toggleIcoSizes() {
+    const fmt = document.getElementById('imgTargetFormat').value;
+    const sizeGrp = document.getElementById('icoSizeGroup');
+    sizeGrp.style.display = (fmt === 'ico') ? 'block' : 'none';
+  }
+
+  function processImageConversion() {
+    if (!loadedConverterImg) {
+      alert('يرجى اختيار صورة أولاً!');
+      return;
+    }
+
+    const format = document.getElementById('imgTargetFormat').value;
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    if (format === 'ico') {
+      const size = parseInt(document.getElementById('icoDimension').value) || 32;
+      canvas.width = size;
+      canvas.height = size;
+      ctx.drawImage(loadedConverterImg, 0, 0, size, size);
+
+      canvas.toBlob(function(blob) {
+        const reader = new FileReader();
+        reader.onloadend = function() {
+          const pngBytes = new Uint8Array(reader.result);
+          const icoHeader = new Uint8Array([
+            0, 0,
+            1, 0,
+            1, 0,
+            size >= 256 ? 0 : size, 
+            size >= 256 ? 0 : size,
+            0,
+            0,
+            1, 0,
+            32, 0,
+            pngBytes.length & 0xFF,
+            (pngBytes.length >> 8) & 0xFF,
+            (pngBytes.length >> 16) & 0xFF,
+            (pngBytes.length >> 24) & 0xFF,
+            22, 0, 0, 0
+          ]);
+
+          const icoBlob = new Blob([icoHeader, pngBytes], { type: 'image/x-icon' });
+          const url = URL.createObjectURL(icoBlob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `icon_${size}x${size}.ico`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        };
+        reader.readAsArrayBuffer(blob);
+      }, 'image/png');
+    } else {
+      canvas.width = loadedConverterImg.width;
+      canvas.height = loadedConverterImg.height;
+      ctx.drawImage(loadedConverterImg, 0, 0);
+
+      const mimeType = 'image/' + format;
+      const dataUrl = canvas.toDataURL(mimeType, 0.92);
+      const a = document.createElement('a');
+      a.href = dataUrl;
+      a.download = `converted_image.${format}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  }
+
+  /* ===== 2. Unit Converter ===== */
+  const unitData = {
+    length: { 'سم': 0.01, 'متر': 1, 'كم': 1000, 'إنش': 0.0254 },
+    weight: { 'جم': 0.001, 'كجم': 1, 'طن': 1000, 'رطل': 0.453592 },
+    temp: ['مئوية', 'فهرنهايت']
+  };
+
+  function setupUnitOptions() {
+    const type = document.getElementById('unitType').value;
+    const fromSel = document.getElementById('unitFromSelect');
+    const toSel = document.getElementById('unitToSelect');
+    fromSel.innerHTML = ''; toSel.innerHTML = '';
+
+    const keys = type === 'temp' ? unitData.temp : Object.keys(unitData[type]);
+    keys.forEach(k => {
+      fromSel.innerHTML += `<option value="${k}">${k}</option>`;
+      toSel.innerHTML += `<option value="${k}">${k}</option>`;
+    });
+    toSel.selectedIndex = 1;
+    convertUnits('from');
+  }
+
+  function convertUnits(dir) {
+    const type = document.getElementById('unitType').value;
+    const from = document.getElementById('unitFromSelect').value;
+    const to = document.getElementById('unitToSelect').value;
+    const inFrom = document.getElementById('unitFromInput');
+    const inTo = document.getElementById('unitToInput');
+
+    if (dir === 'from') {
+      let val = parseFloat(toEnNums(inFrom.value)) || 0;
+      if (type === 'temp') {
+        let res = from === 'مئوية' && to === 'فهرنهايت' ? (val * 9/5) + 32 : (from === 'فهرنهايت' && to === 'مئوية' ? (val - 32) * 5/9 : val);
+        inTo.value = toEnNums(Number(res.toFixed(2)));
+      } else {
+        let base = val * unitData[type][from];
+        let res = base / unitData[type][to];
+        inTo.value = toEnNums(Number(res.toFixed(4)));
+      }
+    } else {
+      let val = parseFloat(toEnNums(inTo.value)) || 0;
+      if (type === 'temp') {
+        let res = to === 'مئوية' && from === 'فهرنهايت' ? (val * 9/5) + 32 : (to === 'فهرنهايت' && from === 'مئوية' ? (val - 32) * 5/9 : val);
+        inFrom.value = toEnNums(Number(res.toFixed(2)));
+      } else {
+        let base = val * unitData[type][to];
+        let res = base / unitData[type][from];
+        inFrom.value = toEnNums(Number(res.toFixed(4)));
+      }
+    }
+  }
+  setupUnitOptions();
+
+  /* ===== 3. QR Generator ===== */
+  function generateQR() {
+    const txt = document.getElementById('qrTextInput').value.trim();
+    const canvas = document.getElementById('qrCanvas');
+    if (!txt) {
+      canvas.style.display = 'none';
+      return;
+    }
+
+    const utf8Text = unescape(encodeURIComponent(txt));
+
+    new QRious({
+      element: canvas,
+      value: utf8Text,
+      size: 220,
+      level: 'H'
+    });
+
+    canvas.style.display = 'block';
+  }
+
+  /* ===== 4. Password Generator ===== */
+  function generatePassword() {
+    const len = parseInt(document.getElementById('passLen').value);
+    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
+    let res = '';
+    for (let i = 0; i < len; i++) {
+      res += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    document.getElementById('passOutput').textContent = res;
+  }
+  generatePassword();
+
+  function copyPassword() {
+    const text = document.getElementById('passOutput').textContent;
+    navigator.clipboard.writeText(text);
+    alert('تم النسخ إلى الحافظة!');
+  }
+
+  /* ===== 5. BMI Calculator ===== */
+  function calculateBMI() {
+    const w = parseFloat(toEnNums(document.getElementById('bmiWeight').value));
+    const h = parseFloat(toEnNums(document.getElementById('bmiHeight').value)) / 100;
+    if (!w || !h) return;
+    const bmi = (w / (h * h)).toFixed(1);
+    let status = '';
+    if (bmi < 18.5) status = 'نقص وزن';
+    else if (bmi < 25) status = 'وزن طبيعي';
+    else if (bmi < 30) status = 'زيادة وزن';
+    else status = 'سمنة';
+    document.getElementById('bmiOutput').innerHTML = `المؤشر: <span class="en-num" dir="ltr">${toEnNums(bmi)}</span> — (${status})`;
+  }
+  calculateBMI();
+
+  /* ===== 6. نظام اختيار التواريخ الموحد النافذة المنبثقة ===== */
+  let currentPickerTarget = null; // 'age', 'diffStart', or 'diffEnd'
+  let selectedBirthDate = null;
+  let selectedDiffStartDate = null;
+  let selectedDiffEndDate = null;
+
+  function openPickerModal(target) {
+    currentPickerTarget = target;
+    const modalTitle = document.getElementById('pickerModalTitle');
+    const now = new Date();
+    let currentDate = null;
+
+    if (target === 'age') {
+      modalTitle.textContent = "تحديد تاريخ الميلاد";
+      currentDate = selectedBirthDate;
+    } else if (target === 'diffStart') {
+      modalTitle.textContent = "تحديد التاريخ الأول";
+      currentDate = selectedDiffStartDate;
+    } else if (target === 'diffEnd') {
+      modalTitle.textContent = "تحديد التاريخ الثاني";
+      currentDate = selectedDiffEndDate;
+    }
+
+    if (!currentDate) {
+      document.getElementById('pDay').value = toEnNums(now.getDate());
+      document.getElementById('pMonth').value = toEnNums(now.getMonth() + 1);
+      document.getElementById('pYear').value = toEnNums(target === 'age' ? now.getFullYear() - 20 : now.getFullYear());
+    } else {
+      document.getElementById('pDay').value = toEnNums(currentDate.getDate());
+      document.getElementById('pMonth').value = toEnNums(currentDate.getMonth() + 1);
+      document.getElementById('pYear').value = toEnNums(currentDate.getFullYear());
+    }
+    document.getElementById('pickerModal').style.display = 'flex';
+  }
+
+  function closePickerModal() {
+    document.getElementById('pickerModal').style.display = 'none';
+  }
+
+  function adjustPickerVal(type, delta) {
+    if (type === 'day') {
+      const el = document.getElementById('pDay');
+      let val = (parseInt(toEnNums(el.value)) || 1) + delta;
+      if (val < 1) val = 31;
+      if (val > 31) val = 1;
+      el.value = toEnNums(val);
+    } else if (type === 'month') {
+      const el = document.getElementById('pMonth');
+      let val = (parseInt(toEnNums(el.value)) || 1) + delta;
+      if (val < 1) val = 12;
+      if (val > 12) val = 1;
+      el.value = toEnNums(val);
+    } else if (type === 'year') {
+      const el = document.getElementById('pYear');
+      let val = (parseInt(toEnNums(el.value)) || 2000) + delta;
+      el.value = toEnNums(val);
+    }
+  }
+
+  function clearPickerDate() {
+    if (currentPickerTarget === 'age') {
+      selectedBirthDate = null;
+      document.getElementById('ageInputDisplay').value = '';
+      document.getElementById('ageOutput').textContent = 'اختر تاريخ ميلادك';
+    } else if (currentPickerTarget === 'diffStart') {
+      selectedDiffStartDate = null;
+      document.getElementById('diffStartDisplay').value = '';
+      calcDateDiff();
+    } else if (currentPickerTarget === 'diffEnd') {
+      selectedDiffEndDate = null;
+      document.getElementById('diffEndDisplay').value = '';
+      calcDateDiff();
+    }
+    closePickerModal();
+  }
+
+  function confirmPickerDate() {
+    const d = parseInt(toEnNums(document.getElementById('pDay').value));
+    const m = parseInt(toEnNums(document.getElementById('pMonth').value));
+    const y = parseInt(toEnNums(document.getElementById('pYear').value));
+
+    if (!d || !m || !y || d < 1 || d > 31 || m < 1 || m > 12 || y < 1900) {
+      alert('يرجى إدخال تاريخ صحيح');
+      return;
+    }
+
+    const newDate = new Date(y, m - 1, d);
+
+    if (currentPickerTarget === 'age') {
+      selectedBirthDate = newDate;
+      document.getElementById('ageInputDisplay').value = toEnNums(`${y}/${m}/${d}`);
+      calculateAge();
+    } else if (currentPickerTarget === 'diffStart') {
+      selectedDiffStartDate = newDate;
+      document.getElementById('diffStartDisplay').value = toEnNums(`${y}/${m}/${d}`);
+      calcDateDiff();
+    } else if (currentPickerTarget === 'diffEnd') {
+      selectedDiffEndDate = newDate;
+      document.getElementById('diffEndDisplay').value = toEnNums(`${y}/${m}/${d}`);
+      calcDateDiff();
+    }
+
+    closePickerModal();
+  }
+
+  function calculateAge() {
+    if (!selectedBirthDate) return;
+
+    const birth = selectedBirthDate;
+    const now = new Date();
+
+    if (birth > now) {
+      document.getElementById('ageOutput').textContent = "تاريخ الميلاد لا يمكن أن يكون في المستقبل!";
+      return;
+    }
+
+    let years = now.getFullYear() - birth.getFullYear();
+    let months = now.getMonth() - birth.getMonth();
+    let days = now.getDate() - birth.getDate();
+
+    if (days < 0) {
+      months--;
+      const prevMonthLastDay = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+      days += prevMonthLastDay;
+    }
+
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    document.getElementById('ageOutput').innerHTML = `العمر: <span class="en-num" dir="ltr">${toEnNums(years)}</span> سنة، و <span class="en-num" dir="ltr">${toEnNums(months)}</span> شهر، و <span class="en-num" dir="ltr">${toEnNums(days)}</span> يوم`;
+  }
+
+  /* ===== 7. Date Difference Calculator ===== */
+  function calcDateDiff() {
+    const output = document.getElementById('dateDiffOutput');
+
+    if (!selectedDiffStartDate || !selectedDiffEndDate) {
+      output.textContent = "اختر التاريخين لرؤية الفارق التفصيلي";
+      return;
+    }
+
+    let d1 = new Date(selectedDiffStartDate);
+    let d2 = new Date(selectedDiffEndDate);
+
+    if (d1 > d2) {
+      const temp = d1;
+      d1 = d2;
+      d2 = temp;
+    }
+
+    let years = d2.getFullYear() - d1.getFullYear();
+    let months = d2.getMonth() - d1.getMonth();
+    let days = d2.getDate() - d1.getDate();
+
+    if (days < 0) {
+      months--;
+      const prevMonth = new Date(d2.getFullYear(), d2.getMonth(), 0).getDate();
+      days += prevMonth;
+    }
+
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    const totalDiffTime = Math.abs(d2 - d1);
+    const totalDays = Math.ceil(totalDiffTime / (1000 * 60 * 60 * 24));
+
+    output.innerHTML = `
+      • الفارق بالتفصيل: <span class="en-num" dir="ltr">${toEnNums(years)}</span> سنة و <span class="en-num" dir="ltr">${toEnNums(months)}</span> شهر و <span class="en-num" dir="ltr">${toEnNums(days)}</span> يوم<br>
+      • إجمالي عدد الأيام: <span class="en-num" dir="ltr">${toEnNums(totalDays.toLocaleString('en-US'))}</span> يوم
+    `;
+  }
+
+  /* ===== 8. Barcode Generator ===== */
+  function generateBarcode() {
+    const text = toEnNums(document.getElementById('barcodeInput').value.trim());
+    const format = document.getElementById('barcodeFormat').value;
+
+    if (!text) {
+      alert("يرجى إدخال النص أو الرقم أولاً");
+      return;
+    }
+
+    try {
+      JsBarcode("#barcodeCanvas", text, {
+        format: format,
+        lineColor: "#000000",
+        width: 2,
+        height: 85,
+        displayValue: true,
+        fontSize: 14,
+        textMargin: 5
+      });
+    } catch (e) {
+      alert("المدخلات غير متوافقة مع نوع البار كود المختار. تأكد من الصيغة أو عدد الأرقام المطلوبة!");
+    }
+}
+</script>
+</body>
+</html>
