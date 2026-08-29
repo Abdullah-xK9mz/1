@@ -46,7 +46,7 @@
     /* ===== Header ===== */
     header {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
     header h1 {
       font-size: 2.2rem;
@@ -60,68 +60,159 @@
       color: var(--text-muted);
       font-size: 0.95rem;
     }
-    /* ===== Grid Nav ===== */
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-      margin-bottom: 25px;
+
+    /* ===== Search Bar ===== */
+    .search-box {
+      position: relative;
+      margin-bottom: 20px;
     }
-    .tool-btn {
+    .search-box input {
+      width: 100%;
+      padding: 14px 20px 14px 45px;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 12px;
-      padding: 20px 15px;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      outline: none;
+      backdrop-filter: blur(10px);
+      transition: all 0.2s ease;
+    }
+    .search-box input:focus {
+      border-color: var(--primary-cyan);
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.15);
+    }
+    .search-box::after {
+      content: '🔍';
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      pointer-events: none;
+    }
+
+    /* ===== Categories Filter ===== */
+    .categories-filter {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 25px;
+      overflow-x: auto;
+      padding-bottom: 5px;
+    }
+    .cat-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 8px 16px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(10px);
+    }
+    .cat-btn:hover, .cat-btn.active {
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(79, 172, 254, 0.15));
+      border-color: var(--primary-cyan);
+      color: var(--primary-cyan);
+    }
+
+    /* ===== Grid Cards ===== */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    .tool-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 20px;
       color: var(--text-main);
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      cursor: pointer;
+      justify-content: space-between;
+      gap: 12px;
       backdrop-filter: blur(10px);
       transition: all 0.2s ease;
-      text-decoration: none;
     }
-    .tool-btn .icon {
-      font-size: 1.8rem;
-    }
-    .tool-btn span {
-      font-size: 0.95rem;
-      font-weight: 600;
-    }
-    .tool-btn:hover {
+    .tool-card:hover {
       border-color: var(--primary-cyan);
       transform: translateY(-3px);
       box-shadow: 0 8px 20px rgba(0, 242, 254, 0.15);
     }
+    .tool-card-content {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .tool-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .tool-card .icon {
+      font-size: 1.8rem;
+    }
+    .tool-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+    .tool-card p {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+    .use-tool-btn {
+      background: transparent;
+      border: none;
+      color: var(--primary-cyan);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      align-self: flex-start;
+      padding: 0;
+      transition: opacity 0.2s;
+    }
+    .use-tool-btn:hover {
+      opacity: 0.8;
+    }
 
-    .nav-home-btn {
+    .nav-home-card {
       grid-column: span 2;
       background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(79, 172, 254, 0.15));
       border: 1px solid rgba(0, 242, 254, 0.4);
-      border-radius: 12px;
-      padding: 20px 15px;
+      border-radius: 16px;
+      padding: 20px;
       color: var(--primary-cyan);
       display: flex;
-      flex-direction: row;
       align-items: center;
-      justify-content: center;
-      gap: 12px;
+      justify-content: space-between;
       cursor: pointer;
       backdrop-filter: blur(10px);
       transition: all 0.2s ease;
       text-decoration: none;
     }
-    .nav-home-btn .icon {
+    .nav-home-card .card-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .nav-home-card .icon {
       font-size: 1.8rem;
     }
-    .nav-home-btn span {
+    .nav-home-card span {
       font-size: 1.05rem;
       font-weight: 700;
       letter-spacing: 0.5px;
     }
-    .nav-home-btn:hover {
+    .nav-home-card:hover {
       background: linear-gradient(135deg, rgba(0, 242, 254, 0.25), rgba(79, 172, 254, 0.25));
       border-color: var(--primary-cyan);
       transform: translateY(-3px);
@@ -131,29 +222,10 @@
 
     @media (max-width: 650px) {
       .tools-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        grid-template-columns: 1fr;
       }
-      .tool-btn {
-        padding: 12px 8px;
-        gap: 4px;
-      }
-      .tool-btn .icon {
-        font-size: 1.3rem;
-      }
-      .tool-btn span {
-        font-size: 0.8rem;
-      }
-      .nav-home-btn {
-        grid-column: span 2;
-        padding: 14px 10px;
-        gap: 8px;
-      }
-      .nav-home-btn .icon {
-        font-size: 1.4rem;
-      }
-      .nav-home-btn span {
-        font-size: 0.9rem;
+      .nav-home-card {
+        grid-column: span 1;
       }
     }
 
@@ -408,29 +480,137 @@
     .btn-set { background: var(--primary-cyan); color: #0f172a; }
     .btn-clear { background: rgba(255, 255, 255, 0.1); color: var(--text-main); }
     .btn-cancel { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.4) !important; }
+
+    /* ===== Footer ===== */
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
   </style>
 </head>
 <body>
 <div class="container">
   <header id="mainHeader">
-    <h1>ورشة الادوات</h1>
-    <p>أدوات رقمية سريعة ومفيدة في مكان واحد</p>
+    <h1>🛠️ أدوات Dark Gift</h1>
+    <p>أدوات سريعة ومفيدة في مكان واحد</p>
   </header>
 
-  <nav class="tools-grid" id="toolsNav">
-    <button class="tool-btn" data-tool="barcode"><span class="icon">📊</span><span>مولّد البار كود</span></button>
-    <button class="tool-btn" data-tool="qr"><span class="icon">▦</span><span>نص إلى QR</span></button>
-    <button class="tool-btn" data-tool="converter"><span class="icon">🖼️</span><span>تحويل صور و ICO</span></button>
-    <button class="tool-btn" data-tool="units"><span class="icon">📐</span><span>تحويل وحدات</span></button>
-    <button class="tool-btn" data-tool="bmi"><span class="icon">⚖️</span><span>مؤشر كتلة الجسم</span></button>
-    <button class="tool-btn" data-tool="password"><span class="icon">🔐</span><span>مولّد كلمات السر</span></button>
-    <button class="tool-btn" data-tool="age"><span class="icon">🎂</span><span>حاسبة العمر</span></button>
-    <button class="tool-btn" data-tool="date-diff"><span class="icon">📅</span><span>فرق التواريخ</span></button>
-    <a href="index.html" class="nav-home-btn"><span class="icon">🏠</span><span>العودة للموقع الرئيسي</span></a>
-  </nav>
+  <!-- مربع البحث -->
+  <div class="search-box" id="searchContainer">
+    <input type="text" id="toolSearchInput" placeholder="ابحث عن أداة..." oninput="filterTools()">
+  </div>
+
+  <!-- التصنيفات -->
+  <div class="categories-filter" id="categoriesContainer">
+    <button class="cat-btn active" onclick="filterCategory('all', this)">الكل</button>
+    <button class="cat-btn" onclick="filterCategory('images', this)">الصور</button>
+    <button class="cat-btn" onclick="filterCategory('codes', this)">الرموز</button>
+    <button class="cat-btn" onclick="filterCategory('calc', this)">الحسابات</button>
+    <button class="cat-btn" onclick="filterCategory('conv', this)">التحويل</button>
+  </div>
+
+  <div class="tools-grid" id="toolsNav">
+    <div class="tool-card" data-category="images" data-keywords="تحويل الصور و ICO صيغ الصور أبعاد آيقونات البرامج والمواقع">
+      <div class="tool-card-content">
+        <div class="tool-card-header">
+          <span class="icon">🖼️</span>
+          <h3>تحويل الصور و ICO</h3>
+        </div>
+        <p>تحويل صيغ الصور وتغيير أبعادها</p>
+      </div>
+      <button class="use-tool-btn" data-tool="converter">استخدام الأداة ←</button>
+    </div>
+
+    <div class="tool-card" data-category="conv" data-keywords="تحويل وحدات الطول الوزن درجة الحرارة">
+      <div class="tool-card-content">
+        <div class="tool-card-header">
+          <span class="icon">📐</span>
+          <h3>تحويل الوحدات</h3>
+        </div>
+        <p>الطول والوزن ودرجة الحرارة</p>
+      </div>
+      <button class="use-tool-btn" data-tool="units">استخدام الأداة ←</button>
+    </div>
+
+    <div class="tool-card" data-category="codes" data-keywords="تحويل نص إلى QR رمز رابط">
+      <div class="tool-card-content">
+        <div class="tool-card-header">
+          <span class="icon">▦</span>
+          <h3>تحويل نص إلى QR</h3>
+        </div>
+        <p>إنشاء رمز QR من نص أو رابط</p>
+      </div>
+      <button class="use-tool-btn" data-tool="qr">استخدام الأداة ←</button>
+    </div>
+
+    <div class="tool-card" data-category="codes" data-keywords="مولّد البار كود الشريطي أكواد">
+      <div class="tool-card-content">
+        <div class="tool-card-header">
+          <span class="icon">📊</span>
+          <h3>مولّد البار كود</h3>
+        </div>
+        <p>إنشاء كافة أنواع أكواد البار كود الشريطية</p>
+      </div>
+      <button class="use-tool-btn" data-tool="barcode">استخدام الأداة ←</button>
+    </div>
+
+    <div class="tool-card" data-category="calc" data-keywords="مؤشر كتلة الجسم BMI حساب الوزن والطول">
+      <div class="tool-card-content">
+        <div class="tool-card-header">
+          <span class="icon">⚖️</span>
+          <h3>مؤشر كتلة الجسم</h3>
+        </div>
+        <p>حساب مؤشر كتلة الجسم والوزن المثالي</p>
+      </div>
+      <button class="use-tool-btn" data-tool="bmi">استخدام الأداة ←</button>
+    </div>
+
+    <div class="tool-card" data-category="codes" data-keywords="مولّد كلمات السر قوية وعشوائية أمان">
+      <div class="tool-card-content">
+        <div class="tool-card-header">
+          <span class="icon">🔐</span>
+          <h3>مولّد كلمات السر</h3>
+        </div>
+        <p>توليد كلمات سر قوية وعشوائية</p>
+      </div>
+      <button class="use-tool-btn" data-tool="password">استخدام الأداة ←</button>
+    </div>
+
+    <div class="tool-card" data-category="calc" data-keywords="حاسبة العمر تاريخ الميلاد بالتفصيل">
+      <div class="tool-card-content">
+        <div class="tool-card-header">
+          <span class="icon">🎂</span>
+          <h3>حاسبة العمر</h3>
+        </div>
+        <p>احسب عمرك بالتفصيل (سنة، شهر، يوم)</p>
+      </div>
+      <button class="use-tool-btn" data-tool="age">استخدام الأداة ←</button>
+    </div>
+
+    <div class="tool-card" data-category="calc" data-keywords="فرق التواريخ حساب الفارق بين تاريخين">
+      <div class="tool-card-content">
+        <div class="tool-card-header">
+          <span class="icon">📅</span>
+          <h3>فرق التواريخ</h3>
+        </div>
+        <p>حساب الفارق المدقق بين أي تاريخين</p>
+      </div>
+      <button class="use-tool-btn" data-tool="date-diff">استخدام الأداة ←</button>
+    </div>
+
+    <a href="index.html" class="nav-home-card">
+      <div class="card-left">
+        <span class="icon">🏠</span>
+        <span>العودة للموقع الرئيسي</span>
+      </div>
+      <span style="font-size: 1.2rem;">←</span>
+    </a>
+  </div>
 
   <main class="workbench" id="workbench">
-    <button class="back-btn" onclick="showHome()">→ العودة للأدوات</button>
+    <button class="back-btn" onclick="showHome()">← العودة للأدوات</button>
 
     <!-- تحويل الصور وتوليد الـ ICO -->
     <section class="tool-section" id="tool-converter">
@@ -635,6 +815,10 @@
       </div>
     </section>
   </main>
+
+  <footer>
+    <p>جميع الحقوق محفوظة © 2026</p>
+  </footer>
 </div>
 
 <script>
@@ -644,12 +828,49 @@
     return String(str).replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));
   }
 
+  /* ===== Search & Filter Logic ===== */
+  let currentCategory = 'all';
+
+  function filterCategory(cat, btn) {
+    currentCategory = cat;
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilters();
+  }
+
+  function filterTools() {
+    applyFilters();
+  }
+
+  function applyFilters() {
+    const query = document.getElementById('toolSearchInput').value.trim().toLowerCase();
+    const cards = document.querySelectorAll('.tools-grid > .tool-card');
+
+    cards.forEach(card => {
+      const category = card.dataset.category;
+      const keywords = card.dataset.keywords.toLowerCase();
+      const title = card.querySelector('h3').textContent.toLowerCase();
+      const desc = card.querySelector('p').textContent.toLowerCase();
+
+      const matchesCat = (currentCategory === 'all' || category === currentCategory);
+      const matchesSearch = (!query || title.includes(query) || desc.includes(query) || keywords.includes(query));
+
+      if (matchesCat && matchesSearch) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
   /* ===== Navigation ===== */
   const toolsNav = document.getElementById('toolsNav');
   const mainHeader = document.getElementById('mainHeader');
+  const searchContainer = document.getElementById('searchContainer');
+  const categoriesContainer = document.getElementById('categoriesContainer');
   const workbench = document.getElementById('workbench');
 
-  document.querySelectorAll('.tool-btn').forEach(btn => {
+  document.querySelectorAll('.use-tool-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const toolId = btn.dataset.tool;
       document.querySelectorAll('.tool-section').forEach(sec => sec.classList.remove('active'));
@@ -657,6 +878,8 @@
 
       toolsNav.style.display = 'none';
       mainHeader.style.display = 'none';
+      searchContainer.style.display = 'none';
+      categoriesContainer.style.display = 'none';
       workbench.style.display = 'block';
 
       if (toolId === 'barcode') {
@@ -669,6 +892,9 @@
     workbench.style.display = 'none';
     toolsNav.style.display = 'grid';
     mainHeader.style.display = 'block';
+    searchContainer.style.display = 'block';
+    categoriesContainer.style.display = 'flex';
+    applyFilters();
   }
 
   /* ===== 1. Image & ICO Converter ===== */
@@ -1069,7 +1295,7 @@
     } catch (e) {
       alert("المدخلات غير متوافقة مع نوع البار كود المختار. تأكد من الصيغة أو عدد الأرقام المطلوبة!");
     }
-}
+  }
 </script>
 </body>
 </html>
