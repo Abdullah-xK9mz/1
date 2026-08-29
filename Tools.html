@@ -598,14 +598,6 @@
       <button class="use-tool-btn">استخدام الأداة ←</button>
     </div>
 
-    <a href="index.html" class="nav-home-card">
-      <div class="card-left">
-        <span class="icon">🏠</span>
-        <span>العودة للموقع الرئيسي</span>
-      </div>
-      <span style="font-size: 1.2rem;">←</span>
-    </a>
-  </div>
 
   <main class="workbench" id="workbench">
     <button class="back-btn" onclick="showHome()">← العودة للأدوات</button>
@@ -1296,6 +1288,27 @@
       alert("المدخلات غير متوافقة مع نوع البار كود المختار. تأكد من الصيغة أو عدد الأرقام المطلوبة!");
     }
   }
+
+  @media (max-width: 768px) {
+    header {
+        padding: 0 15px;
+    }
+    nav {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        max-width: 65%;
+        scrollbar-width: none;
+    }
+    nav::-webkit-scrollbar {
+        display: none;
+    }
+    nav a {
+        font-size: 0.78rem;
+        padding: 4px 8px;
+        white-space: nowrap;
+    }
+}
 </script>
 </body>
 </html>
