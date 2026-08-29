@@ -139,6 +139,7 @@
       backdrop-filter: blur(10px);
       transition: all 0.2s ease;
       cursor: pointer;
+      text-decoration: none;
     }
     .tool-card:hover {
       border-color: var(--primary-cyan);
@@ -179,51 +180,12 @@
       gap: 5px;
       align-self: flex-start;
       padding: 0;
-      pointer-events: none; /* لتفادي التعارض وجعل النقر يمرر للبطاقة بالكامل */
-    }
-
-    .nav-home-card {
-      grid-column: span 2;
-      background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(79, 172, 254, 0.15));
-      border: 1px solid rgba(0, 242, 254, 0.4);
-      border-radius: 16px;
-      padding: 20px;
-      color: var(--primary-cyan);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      backdrop-filter: blur(10px);
-      transition: all 0.2s ease;
-      text-decoration: none;
-    }
-    .nav-home-card .card-left {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-    .nav-home-card .icon {
-      font-size: 1.8rem;
-    }
-    .nav-home-card span {
-      font-size: 1.05rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-    .nav-home-card:hover {
-      background: linear-gradient(135deg, rgba(0, 242, 254, 0.25), rgba(79, 172, 254, 0.25));
-      border-color: var(--primary-cyan);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(0, 242, 254, 0.3);
-      color: #fff;
+      pointer-events: none;
     }
 
     @media (max-width: 650px) {
       .tools-grid {
         grid-template-columns: 1fr;
-      }
-      .nav-home-card {
-        grid-column: span 1;
       }
     }
 
@@ -510,6 +472,17 @@
   </div>
 
   <div class="tools-grid" id="toolsNav">
+    <a href="Tik_Downloader.html" class="tool-card" data-category="codes" data-keywords="تيك توك تحميل فيديو بدون علامة مائية تيكتوك">
+      <div class="tool-card-content">
+        <div class="tool-card-header">
+          <span class="icon">📥</span>
+          <h3>TikTok Downloader</h3>
+        </div>
+        <p>تحميل فيديوهات وألبومات صور تيك توك بدون علامة مائية وبأعلى جودة.</p>
+      </div>
+      <button class="use-tool-btn">استخدام الأداة ←</button>
+    </a>
+
     <div class="tool-card" data-category="images" data-keywords="تحويل الصور و ICO صيغ الصور أبعاد آيقونات البرامج والمواقع" data-tool="converter">
       <div class="tool-card-content">
         <div class="tool-card-header">
@@ -532,29 +505,8 @@
       <button class="use-tool-btn">استخدام الأداة ←</button>
     </div>
 
-    <div class="tool-card" data-category="codes" data-keywords="تحويل نص إلى QR رمز رابط" data-tool="qr">
-      <div class="tool-card-content">
-        <div class="tool-card-header">
-          <span class="icon">▦</span>
-          <h3>تحويل نص إلى QR</h3>
-        </div>
-        <p>إنشاء رمز QR من نص أو رابط</p>
-      </div>
-      <button class="use-tool-btn">استخدام الأداة ←</button>
-    </div>
-
-    <div class="tool-card" data-category="codes" data-keywords="مولّد البار كود الشريطي أكواد" data-tool="barcode">
-      <div class="tool-card-content">
-        <div class="tool-card-header">
-          <span class="icon">📊</span>
-          <h3>مولّد البار كود</h3>
-        </div>
-        <p>إنشاء كافة أنواع أكواد البار كود الشريطية</p>
-      </div>
-      <button class="use-tool-btn">استخدام الأداة ←</button>
-    </div>
-
-    <div class="tool-card" data-category="calc" data-keywords="مؤشر كتلة الجسم BMI حساب الوزن والطول" data-tool="bmi">
+  
+       <div class="tool-card" data-category="calc" data-keywords="مؤشر كتلة الجسم BMI حساب الوزن والطول" data-tool="bmi">
       <div class="tool-card-content">
         <div class="tool-card-header">
           <span class="icon">⚖️</span>
@@ -565,17 +517,7 @@
       <button class="use-tool-btn">استخدام الأداة ←</button>
     </div>
 
-    <div class="tool-card" data-category="codes" data-keywords="مولّد كلمات السر قوية وعشوائية أمان" data-tool="password">
-      <div class="tool-card-content">
-        <div class="tool-card-header">
-          <span class="icon">🔐</span>
-          <h3>مولّد كلمات السر</h3>
-        </div>
-        <p>توليد كلمات سر قوية وعشوائية</p>
-      </div>
-      <button class="use-tool-btn">استخدام الأداة ←</button>
-    </div>
-
+  
     <div class="tool-card" data-category="calc" data-keywords="حاسبة العمر تاريخ الميلاد بالتفصيل" data-tool="age">
       <div class="tool-card-content">
         <div class="tool-card-header">
@@ -597,7 +539,7 @@
       </div>
       <button class="use-tool-btn">استخدام الأداة ←</button>
     </div>
-
+  </div>
 
   <main class="workbench" id="workbench">
     <button class="back-btn" onclick="showHome()">← العودة للأدوات</button>
@@ -667,29 +609,7 @@
       </div>
     </section>
 
-    <!-- QR Code -->
-    <section class="tool-section" id="tool-qr">
-      <h2 class="panel-title">تحويل نص إلى QR</h2>
-      <p class="panel-desc">أنشئ رمز QR لأي رابط أو نص عربي أو إنجليزي</p>
-      <label>النص أو الرابط</label>
-      <textarea id="qrTextInput" placeholder="اكتب النص هنا..."></textarea>
-      <button class="action-btn" onclick="generateQR()">توليد الرمز</button>
-      <div id="qrOutput">
-        <canvas id="qrCanvas"></canvas>
-      </div>
-    </section>
-
-    <!-- مولد كلمات السر -->
-    <section class="tool-section" id="tool-password">
-      <h2 class="panel-title">مولّد كلمات السر</h2>
-      <p class="panel-desc">توليد كلمات سر قوية وعشوائية</p>
-      <label>الطول: <span id="passLenDisplay" class="en-num" dir="ltr">16</span></label>
-      <input type="range" id="passLen" min="6" max="32" value="16" style="width: 100%; accent-color: var(--primary-cyan);" oninput="document.getElementById('passLenDisplay').textContent = toEnNums(this.value); generatePassword();">
-      <div class="result-box en-num" id="passOutput" dir="ltr">------</div>
-      <button class="action-btn" onclick="generatePassword()">توليد جديدة</button>
-      <button class="action-btn btn-ghost" onclick="copyPassword()" style="margin-top: 8px;">نسخ كلمة السر</button>
-    </section>
-
+ 
     <!-- حاسبة الكتلة -->
     <section class="tool-section" id="tool-bmi">
       <h2 class="panel-title">حاسبة كتلة الجسم (BMI)</h2>
@@ -745,66 +665,39 @@
       </div>
     </section>
 
-    <!-- النافذة المنبثقة المشتركة لاختيار التاريخ -->
-    <div class="custom-picker-modal" id="pickerModal">
-      <div class="custom-picker-card">
-        <h3 id="pickerModalTitle" style="text-align: center; color: var(--primary-cyan); font-size: 1.1rem;">تحديد التاريخ</h3>
-        <div class="picker-columns">
-          <div class="picker-col">
-            <label>اليوم</label>
-            <button class="step-btn" onclick="adjustPickerVal('day', 1)">+</button>
-            <input type="number" id="pDay" class="en-num" min="1" max="31" value="1">
-            <button class="step-btn" onclick="adjustPickerVal('day', -1)">-</button>
-          </div>
-          <div class="picker-col">
-            <label>الشهر</label>
-            <button class="step-btn" onclick="adjustPickerVal('month', 1)">+</button>
-            <input type="number" id="pMonth" class="en-num" min="1" max="12" value="1">
-            <button class="step-btn" onclick="adjustPickerVal('month', -1)">-</button>
-          </div>
-          <div class="picker-col">
-            <label>السنة</label>
-            <button class="step-btn" onclick="adjustPickerVal('year', 1)">+</button>
-            <input type="number" id="pYear" class="en-num" min="1900" max="2099" value="2000">
-            <button class="step-btn" onclick="adjustPickerVal('year', -1)">-</button>
-          </div>
+ 
+  
+  <!-- النافذة المنبثقة المشتركة لاختيار التاريخ -->
+  <div class="custom-picker-modal" id="pickerModal">
+    <div class="custom-picker-card">
+      <h3 id="pickerModalTitle" style="text-align: center; color: var(--primary-cyan); font-size: 1.1rem;">تحديد التاريخ</h3>
+      <div class="picker-columns">
+        <div class="picker-col">
+          <label>اليوم</label>
+          <button class="step-btn" onclick="adjustPickerVal('day', 1)">+</button>
+          <input type="number" id="pDay" class="en-num" min="1" max="31" value="1">
+          <button class="step-btn" onclick="adjustPickerVal('day', -1)">-</button>
         </div>
-        <div class="picker-actions">
-          <button class="btn-cancel" onclick="closePickerModal()">إلغاء</button>
-          <button class="btn-clear" onclick="clearPickerDate()">محو</button>
-          <button class="btn-set" onclick="confirmPickerDate()">تعيين</button>
+        <div class="picker-col">
+          <label>الشهر</label>
+          <button class="step-btn" onclick="adjustPickerVal('month', 1)">+</button>
+          <input type="number" id="pMonth" class="en-num" min="1" max="12" value="1">
+          <button class="step-btn" onclick="adjustPickerVal('month', -1)">-</button>
         </div>
+        <div class="picker-col">
+          <label>السنة</label>
+          <button class="step-btn" onclick="adjustPickerVal('year', 1)">+</button>
+          <input type="number" id="pYear" class="en-num" min="1900" max="2099" value="2000">
+          <button class="step-btn" onclick="adjustPickerVal('year', -1)">-</button>
+        </div>
+      </div>
+      <div class="picker-actions">
+        <button class="btn-cancel" onclick="closePickerModal()">إلغاء</button>
+        <button class="btn-clear" onclick="clearPickerDate()">محو</button>
+        <button class="btn-set" onclick="confirmPickerDate()">تعيين</button>
       </div>
     </div>
-
-    <!-- مولد البار كود الشريطي -->
-    <section class="tool-section" id="tool-barcode">
-      <h2 class="panel-title">مولّد البار كود الشريطي</h2>
-      <p class="panel-desc">إنشاء كافة أنواع أكواد البار كود الشريطية المستطيلة</p>
-      
-      <label>اختر نوع البار كود</label>
-      <select id="barcodeFormat" class="en-num">
-        <option value="CODE128">CODE 128 (شامل: أرقام، حروف، رموز)</option>
-        <option value="EAN13">EAN-13 (منتجات تجارية - 13 رقم)</option>
-        <option value="EAN8">EAN-8 (منتجات صغيرة - 8 أرقام)</option>
-        <option value="UPC">UPC-A (منتجات - 12 رقم)</option>
-        <option value="UPCE">UPC-E (منتجات مصغرة - 6 إلى 8 أرقام)</option>
-        <option value="CODE39">CODE 39 (أرقام وحروف كبيرة)</option>
-        <option value="CODE93">CODE 93 (كود 93 مدمج)</option>
-        <option value="ITF14">ITF (تغليف وشحن - أرقام زوجية)</option>
-        <option value="CODABAR">CODABAR (مكتبات وبنوك)</option>
-      </select>
-
-      <label>الكود أو الرقم المراد تشفيره</label>
-      <input type="text" id="barcodeInput" class="en-num" value="123456789012" placeholder="أدخل النص أو الرقم هنا...">
-
-      <button class="action-btn" onclick="generateBarcode()">إنشاء البار كود</button>
-
-      <div class="barcode-output">
-        <svg id="barcodeCanvas"></svg>
-      </div>
-    </section>
-  </main>
+  </div>
 
   <footer>
     <p>جميع الحقوق محفوظة © 2026</p>
@@ -838,7 +731,7 @@
 
     cards.forEach(card => {
       const category = card.dataset.category;
-      const keywords = card.dataset.keywords.toLowerCase();
+      const keywords = (card.dataset.keywords || '').toLowerCase();
       const title = card.querySelector('h3').textContent.toLowerCase();
       const desc = card.querySelector('p').textContent.toLowerCase();
 
@@ -861,10 +754,11 @@
   const workbench = document.getElementById('workbench');
 
   document.querySelectorAll('.tool-card').forEach(card => {
-    card.addEventListener('click', () => {
+    card.addEventListener('click', (e) => {
       const toolId = card.dataset.tool;
-      if (!toolId) return;
+      if (!toolId) return; // لو رابط خارجي زي تيك توك يسيبه طبيعي
       
+      e.preventDefault();
       document.querySelectorAll('.tool-section').forEach(sec => sec.classList.remove('active'));
       document.getElementById('tool-' + toolId).classList.add('active');
 
@@ -1034,44 +928,6 @@
   }
   setupUnitOptions();
 
-  /* ===== 3. QR Generator ===== */
-  function generateQR() {
-    const txt = document.getElementById('qrTextInput').value.trim();
-    const canvas = document.getElementById('qrCanvas');
-    if (!txt) {
-      canvas.style.display = 'none';
-      return;
-    }
-
-    const utf8Text = unescape(encodeURIComponent(txt));
-
-    new QRious({
-      element: canvas,
-      value: utf8Text,
-      size: 220,
-      level: 'H'
-    });
-
-    canvas.style.display = 'block';
-  }
-
-  /* ===== 4. Password Generator ===== */
-  function generatePassword() {
-    const len = parseInt(document.getElementById('passLen').value);
-    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
-    let res = '';
-    for (let i = 0; i < len; i++) {
-      res += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    document.getElementById('passOutput').textContent = res;
-  }
-  generatePassword();
-
-  function copyPassword() {
-    const text = document.getElementById('passOutput').textContent;
-    navigator.clipboard.writeText(text);
-    alert('تم النسخ إلى الحافظة!');
-  }
 
   /* ===== 5. BMI Calculator ===== */
   function calculateBMI() {
@@ -1089,7 +945,7 @@
   calculateBMI();
 
   /* ===== 6. نظام اختيار التواريخ الموحد النافذة المنبثقة ===== */
-  let currentPickerTarget = null; // 'age', 'diffStart', or 'diffEnd'
+  let currentPickerTarget = null;
   let selectedBirthDate = null;
   let selectedDiffStartDate = null;
   let selectedDiffEndDate = null;
@@ -1262,31 +1118,6 @@
       • الفارق بالتفصيل: <span class="en-num" dir="ltr">${toEnNums(years)}</span> سنة و <span class="en-num" dir="ltr">${toEnNums(months)}</span> شهر و <span class="en-num" dir="ltr">${toEnNums(days)}</span> يوم<br>
       • إجمالي عدد الأيام: <span class="en-num" dir="ltr">${toEnNums(totalDays.toLocaleString('en-US'))}</span> يوم
     `;
-  }
-
-  /* ===== 8. Barcode Generator ===== */
-  function generateBarcode() {
-    const text = toEnNums(document.getElementById('barcodeInput').value.trim());
-    const format = document.getElementById('barcodeFormat').value;
-
-    if (!text) {
-      alert("يرجى إدخال النص أو الرقم أولاً");
-      return;
-    }
-
-    try {
-      JsBarcode("#barcodeCanvas", text, {
-        format: format,
-        lineColor: "#000000",
-        width: 2,
-        height: 85,
-        displayValue: true,
-        fontSize: 14,
-        textMargin: 5
-      });
-    } catch (e) {
-      alert("المدخلات غير متوافقة مع نوع البار كود المختار. تأكد من الصيغة أو عدد الأرقام المطلوبة!");
-    }
   }
 
 </script>
