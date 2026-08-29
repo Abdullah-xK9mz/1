@@ -1,815 +1,648 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
+<!doctype html>
+<html dir="rtl" lang="ar">
+  <head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>تحميل بدون علامه مائيه</title>
+    <title>Dark Gift — TikTok Downloader</title>
     <style>
-        :root {
-            --primary: #0084ff;
-            --secondary: #00c6ff;
-            --bg: #0f172a;
-            --card-bg: #1e293b;
-            --text: #f8fafc;
-            --accent: #3b82f6;
+      :root {
+        --primary: #0084ff;
+        --secondary: #00c6ff;
+        --bg: #090d16;
+        --card-bg: #131c2e;
+        --card-hover: #1b2842;
+        --text: #f1f5f9;
+        --text-muted: #64748b;
+        --border: #1e2d4a;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      /* شريط الموقع — أعلى الصفحة */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 65px;
+        background: rgba(9, 13, 22, 0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 6%;
+        z-index: 1000;
+      }
+
+      .logo {
+        font-size: 1.15rem;
+        font-weight: 800;
+        color: var(--secondary);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      nav {
+        display: flex;
+        gap: 22px;
+      }
+
+      nav a {
+        color: #94a3b8;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: 0.2s;
+        padding: 6px 10px;
+        border-radius: 8px;
+        white-space: nowrap;
+      }
+
+      nav a:hover, nav a.active {
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      /* حاوية الصفحة */
+      .page-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 95px 20px 40px 20px;
+        width: 100%;
+        box-sizing: border-box;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 550px;
+        background: var(--card-bg);
+        padding: 25px;
+        border-radius: 20px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        border: 1px solid var(--border);
+      }
+
+      h1 {
+        font-size: 1.5rem;
+        font-weight: 800;
+        text-align: right;
+        color: #ffffff;
+        margin: 0 0 6px 0;
+      }
+
+      p.subtitle {
+        text-align: right;
+        color: var(--text-muted);
+        font-size: 0.88rem;
+        margin-bottom: 20px;
+        font-weight: 600;
+      }
+
+      .input-group {
+        background: #090d16;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      }
+
+      textarea {
+        width: 100%;
+        height: 75px;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #fff;
+        font-size: 0.95rem;
+        resize: vertical;
+        box-sizing: border-box;
+      }
+
+      .btn-paste {
+        background: var(--card-bg);
+        color: var(--secondary);
+        border: 1px solid var(--border);
+        padding: 8px 14px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 0.8rem;
+        float: left;
+        margin-top: 5px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      .btn-paste:hover {
+        background: var(--card-hover);
+      }
+
+      button.btn-main {
+        width: 100%;
+        background: linear-gradient(135deg, #0066ff, #00c6ff);
+        color: #fff;
+        border: none;
+        padding: 15px;
+        border-radius: 14px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 15px;
+        box-shadow: 0 8px 20px rgba(0, 102, 255, 0.35);
+        transition: 0.3s;
+      }
+
+      button.btn-main:hover {
+        opacity: 0.9;
+      }
+
+      .btn-back {
+        width: 100%;
+        background: #090d16;
+        color: #94a3b8;
+        border: 1px solid var(--border);
+        padding: 12px;
+        border-radius: 14px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        margin-top: 10px;
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        box-sizing: border-box;
+        transition: 0.2s;
+      }
+
+      .btn-back:hover {
+        color: #fff;
+        background: var(--card-hover);
+      }
+
+      .results-grid {
+        margin-top: 25px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+      }
+
+      .card {
+        background: var(--bg);
+        border-radius: 16px;
+        padding: 16px;
+        border: 1px solid var(--border);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      }
+
+      .card-header {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        margin-bottom: 15px;
+      }
+
+      .card-header img.thumb {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+
+      .card-title {
+        font-size: 0.9rem;
+        color: #cbd5e1;
+        line-height: 1.4;
+      }
+
+      .actions-group {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 8px;
+      }
+
+      .btn-action {
+        width: 100%;
+        padding: 11px 8px;
+        border-radius: 10px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        border: none;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        background: var(--primary);
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      .btn-action:hover {
+        opacity: 0.9;
+      }
+
+      .btn-action.btn-audio {
+        background: #7c3aed;
+      }
+
+      .btn-action.btn-preview {
+        background: var(--card-bg);
+        color: #94a3b8;
+        border: 1px solid var(--border);
+      }
+
+      .btn-action.downloaded {
+        background: #10b981 !important;
+        color: #fff !important;
+      }
+
+      .images-gallery {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .image-item {
+        background: var(--card-bg);
+        padding: 8px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+      }
+
+      .image-item img {
+        width: 100%;
+        height: 130px;
+        object-fit: cover;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      .loader {
+        display: none;
+        text-align: center;
+        margin: 20px 0;
+        font-weight: 700;
+        color: var(--secondary);
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;
+        box-sizing: border-box;
+      }
+
+      .modal-content {
+        max-width: 95%;
+        max-height: 80vh;
+        border-radius: 12px;
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        color: #fff;
+        font-size: 35px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      video.preview-video {
+        width: 100%;
+        max-height: 350px;
+        border-radius: 12px;
+        margin-top: 12px;
+        background: #000;
+      }
+
+      /* Footer — أسفل الموقع */
+      footer {
+        background: #090d16;
+        border-top: 1px solid var(--border);
+        padding: 30px 20px;
+        text-align: center;
+      }
+
+      .footer-content {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .footer-logo {
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: var(--secondary);
+      }
+
+      .footer-desc {
+        color: var(--text-muted);
+        font-size: 0.88rem;
+        font-weight: 600;
+      }
+
+      .footer-bottom {
+        margin-top: 10px;
+        color: #475569;
+        font-size: 0.8rem;
+      }
+
+      /* تفاعل الموبايل */
+      @media (max-width: 768px) {
+        nav {
+          display: none;
         }
-
-        /* =========================================================
-           شريط التبويبات العلوي (Navbar Styles)
-           ========================================================= */
-        .site-navbar {
-            width: 100%;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid #1e2d4a;
-            position: sticky;
-            top: 0;
-            z-index: 999;
-            box-sizing: border-box;
+        .page-container {
+          padding: 85px 15px 30px 15px;
         }
-
-        .nav-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 20px;
+        .container {
+          padding: 16px;
+          border: none;
+          background: transparent;
+          box-shadow: none;
         }
-
-        .nav-brand {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: var(--secondary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 15px;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            align-items: center;
-        }
-
-        .nav-links li a {
-            color: #94a3b8;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            padding: 6px 12px;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .nav-links li a:hover,
-        .nav-links li a.active {
-            color: #fff;
-            background: rgba(0, 132, 255, 0.15);
-            border: 1px solid rgba(0, 132, 255, 0.3);
-        }
-
-        /* =========================================================
-           1. تصميم الكمبيوتر (Desktop Styles - للشاشات الأكبر من 768px)
-           ========================================================= */
-        @media (min-width: 769px) {
-            body {
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                background-color: var(--bg);
-                color: var(--text);
-                margin: 0;
-                padding: 0;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                min-height: 100vh;
-                box-sizing: border-box;
-            }
-
-            .main-wrapper {
-                padding: 20px;
-                display: flex;
-                justify-content: center;
-                flex-direction: column;
-                align-items: center;
-                width: 100%;
-                box-sizing: border-box;
-                flex: 1;
-            }
-
-            .container {
-                width: 100%;
-                max-width: 500px;
-                background: var(--card-bg);
-                padding: 25px;
-                border-radius: 15px;
-                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-                border: 1px solid #334155;
-            }
-
-            h1 {
-                text-align: center;
-                color: var(--secondary);
-                margin-bottom: 5px;
-            }
-
-            p.subtitle {
-                text-align: center;
-                color: #94a3b8;
-                font-size: 0.9rem;
-                margin-bottom: 25px;
-            }
-
-            .input-group {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            textarea {
-                width: 100%;
-                height: 75px;
-                background: #0f172a;
-                border: 1px solid #334155;
-                border-radius: 10px;
-                color: #fff;
-                padding: 12px;
-                box-sizing: border-box;
-                resize: vertical;
-                font-size: 0.95rem;
-            }
-
-            textarea:focus {
-                outline: none;
-                border-color: var(--primary);
-            }
-
-            .btn-paste {
-                background: #334155;
-                color: #fff;
-                border: 1px solid #475569;
-                padding: 10px;
-                border-radius: 8px;
-                font-weight: bold;
-                cursor: pointer;
-                transition: 0.2s;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 8px;
-            }
-
-            .btn-paste:hover {
-                background: #475569;
-            }
-
-            button.btn-main {
-                width: 100%;
-                background: linear-gradient(45deg, #0052d4, #4364f7, #6fb1fc);
-                color: white;
-                border: none;
-                padding: 14px;
-                border-radius: 10px;
-                font-size: 1.1rem;
-                font-weight: bold;
-                cursor: pointer;
-                margin-top: 10px;
-                transition: 0.3s;
-            }
-
-            button.btn-main:hover {
-                opacity: 0.9;
-            }
-
-            .btn-back {
-                width: 100%;
-                background: #334155;
-                color: #f8fafc;
-                border: 1px solid #475569;
-                padding: 12px;
-                border-radius: 10px;
-                font-size: 1rem;
-                font-weight: bold;
-                cursor: pointer;
-                margin-top: 10px;
-                display: block;
-                text-align: center;
-                text-decoration: none;
-                box-sizing: border-box;
-            }
-
-            .btn-back:hover {
-                background: #475569;
-            }
-
-            .results-grid {
-                margin-top: 30px;
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .card {
-                background: #0f172a;
-                border-radius: 10px;
-                padding: 15px;
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
-                border-right: 4px solid var(--primary);
-                border-top: 1px solid #334155;
-            }
-
-            .card-header {
-                display: flex;
-                gap: 15px;
-                align-items: center;
-            }
-
-            .card-header img.thumb {
-                width: 80px;
-                height: 80px;
-                object-fit: cover;
-                border-radius: 8px;
-                cursor: pointer;
-            }
-
-            .card-title {
-                font-size: 0.95rem;
-                line-height: 1.4;
-                flex-grow: 1;
-            }
-
-            .actions-group {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-                gap: 10px;
-            }
-
-            .btn-action {
-                background: var(--primary);
-                color: #fff;
-                border: none;
-                padding: 10px;
-                border-radius: 6px;
-                font-weight: bold;
-                text-align: center;
-                cursor: pointer;
-                transition: 0.2s;
-                font-size: 0.85rem;
-            }
-
-            .btn-action:hover {
-                background: #2563eb;
-            }
-
-            .btn-action.btn-audio {
-                background: #8b5cf6;
-            }
-
-            .btn-action.btn-audio:hover {
-                background: #7c3aed;
-            }
-
-            .btn-action.btn-preview {
-                background: #334155;
-                color: #f8fafc;
-            }
-
-            .btn-action.btn-preview:hover {
-                background: #475569;
-            }
-
-            .images-gallery {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-                gap: 12px;
-                margin-top: 10px;
-            }
-
-            .image-item {
-                display: flex;
-                flex-direction: column;
-                gap: 6px;
-                background: #1e293b;
-                padding: 8px;
-                border-radius: 8px;
-            }
-
-            .image-item img {
-                width: 100%;
-                height: 120px;
-                object-fit: cover;
-                border-radius: 6px;
-                cursor: pointer;
-            }
-        }
-
-        /* =========================================================
-           2. تصميم الموبايل (Mobile - للشاشات حتى 768px)
-           ========================================================= */
-        @media (max-width: 768px) {
-            body {
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-                background-color: #090d16;
-                color: #f1f5f9;
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-                display: flex;
-                flex-direction: column;
-                min-height: 100vh;
-            }
-
-            .main-wrapper {
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                width: 100%;
-                box-sizing: border-box;
-            }
-
-            .container {
-                width: 100%;
-                flex: 1;
-                padding: 20px 16px;
-                box-sizing: border-box;
-                background: transparent;
-                border: none;
-                box-shadow: none;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-                font-weight: 800;
-                text-align: right;
-                color: #ffffff;
-                margin: 10px 0 4px 0;
-            }
-
-            p.subtitle {
-                text-align: right;
-                color: #64748b;
-                font-size: 0.85rem;
-                margin-bottom: 20px;
-            }
-
-            .input-group {
-                background: #131c2e;
-                border: 1px solid #1e2d4a;
-                border-radius: 16px;
-                padding: 12px;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            }
-
-            textarea {
-                width: 100%;
-                height: 70px;
-                background: transparent;
-                border: none;
-                outline: none;
-                color: #fff;
-                font-size: 0.95rem;
-                resize: none;
-                box-sizing: border-box;
-            }
-
-            .btn-paste {
-                background: #1e293b;
-                color: #38bdf8;
-                border: 1px solid #334155;
-                padding: 8px 14px;
-                border-radius: 10px;
-                font-weight: 600;
-                font-size: 0.8rem;
-                float: left;
-                margin-top: 5px;
-            }
-
-            button.btn-main {
-                width: 100%;
-                background: linear-gradient(135deg, #0066ff, #00c6ff);
-                color: #fff;
-                border: none;
-                padding: 16px;
-                border-radius: 14px;
-                font-size: 1rem;
-                font-weight: 700;
-                margin-top: 15px;
-                box-shadow: 0 8px 20px rgba(0, 102, 255, 0.35);
-                letter-spacing: 0.3px;
-            }
-
-            .btn-back {
-                width: 100%;
-                background: #131c2e;
-                color: #94a3b8;
-                border: 1px solid #1e2d4a;
-                padding: 14px;
-                border-radius: 14px;
-                font-size: 0.95rem;
-                font-weight: 700;
-                margin-top: 10px;
-                display: block;
-                text-align: center;
-                text-decoration: none;
-                box-sizing: border-box;
-            }
-
-            .results-grid {
-                margin-top: 25px;
-                display: flex;
-                flex-direction: column;
-                gap: 16px;
-            }
-
-            .card {
-                background: #131c2e;
-                border-radius: 16px;
-                padding: 16px;
-                border: 1px solid #1e2d4a;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            }
-
-            .card-header {
-                display: flex;
-                gap: 12px;
-                align-items: flex-start;
-                margin-bottom: 15px;
-            }
-
-            .card-header img.thumb {
-                width: 70px;
-                height: 70px;
-                object-fit: cover;
-                border-radius: 12px;
-            }
-
-            .card-title {
-                font-size: 0.9rem;
-                color: #cbd5e1;
-                line-height: 1.4;
-            }
-
-            .actions-group {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-                gap: 8px;
-            }
-
-            .btn-action {
-                width: 100%;
-                padding: 11px 8px;
-                border-radius: 10px;
-                font-size: 0.82rem;
-                font-weight: 700;
-                border: none;
-                color: #fff;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                box-sizing: border-box;
-                background: #0070f3;
-            }
-
-            .btn-action.btn-audio {
-                background: #7c3aed;
-            }
-
-            .btn-action.btn-preview {
-                background: #1e293b;
-                color: #94a3b8;
-                border: 1px solid #334155;
-            }
-
-            .images-gallery {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-                margin-top: 10px;
-            }
-
-            .image-item {
-                background: #090d16;
-                padding: 8px;
-                border-radius: 12px;
-                border: 1px solid #1e2d4a;
-            }
-
-            .image-item img {
-                width: 100%;
-                height: 130px;
-                object-fit: cover;
-                border-radius: 8px;
-            }
-        }
-
-        /* =========================================================
-           3. العناصر المشتركة (Shared Components)
-           ========================================================= */
-        .btn-action.downloaded {
-            background: #10b981 !important;
-            color: #fff !important;
-        }
-
-        .loader {
-            display: none;
-            text-align: center;
-            margin: 20px 0;
-            font-weight: bold;
-            color: var(--secondary);
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-            box-sizing: border-box;
-        }
-
-        .modal-content {
-            max-width: 95%;
-            max-height: 80vh;
-            border-radius: 12px;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            color: #fff;
-            font-size: 35px;
-            font-weight: bold;
-        }
-
-        video.preview-video {
-            width: 100%;
-            max-height: 350px;
-            border-radius: 12px;
-            margin-top: 12px;
-            background: #000;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #64748b;
-            font-size: 0.85rem;
-            border-top: 1px solid #1e2d4a;
-            width: 100%;
-            box-sizing: border-box;
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
 
-<nav class="site-navbar">
-    <div class="nav-container">
-        <a href="index.html" class="nav-brand">⚡ Dark Gift</a>
-        <ul class="nav-links">
-            <li><a href="index.html">الرئيسية</a></li>
-            <li><a href="#" class="active">تيك توك</a></li>
-            <li><a href="index.html">الأدوات</a></li>
-        </ul>
-    </div>
-</nav>
+    <header>
+        <a href="index.html" class="logo">🎁 Dark Gift</a>
+        <nav>
+            <a href="index.html">الرئيسية</a>
+            <a href="wallpapers.html">الخلفيات</a>
+            <a href="games.html">الألعاب</a>
+            <a href="Tools.html">الأدوات</a>
+            <a href="Tik_Downloader.html" class="active">TikTok Downloader</a>
+        </nav>
+    </header>
 
-<div class="main-wrapper">
-    <div class="container">
-        <h1>TikTok Downloader</h1>
-        <p class="subtitle">تحميل فيديوهات وصور TikTok بدون علامة مائية</p>
+    <div class="page-container">
+        <div class="container">
+            <h1>TikTok Downloader</h1>
+            <p class="subtitle">تحميل الفيديوهات والصور بدون علامة مائية</p>
 
-        <div class="input-group">
-            <textarea id="linksInput" placeholder="🔗 الصق رابط TikTok هنا..."></textarea>
-            <button type="button" class="btn-paste" id="pasteBtn">📋 لصق من الحافظة</button>
-            <div style="clear:both;"></div>
+            <div class="input-group">
+                <textarea id="linksInput" placeholder="🔗 الصق رابط تيك توك هنا..."></textarea>
+                <button type="button" class="btn-paste" id="pasteBtn">📋 لصق</button>
+                <div style="clear:both;"></div>
+            </div>
+            
+            <button class="btn-main" onclick="processLinks()">⬇️ تحميل الآن</button>
+            <a href="index.html" class="btn-back">⬅️ العودة للرئيسية</a>
+
+            <div class="loader" id="loader">جاري جلب المحتوى...</div>
+
+            <div class="results-grid" id="results"></div>
         </div>
-        
-        <button class="btn-main" onclick="processLinks()">⬇️ تحميل بدون علامة مائية</button>
-        <a href="index.html" class="btn-back">⬅️ الرجوع للخلف</a>
-
-        <div class="loader" id="loader">جاري العثور على الفيديوهات والصور...</div>
-
-        <div class="results-grid" id="results"></div>
     </div>
-</div>
 
-<footer>
-    حمّل محتوى TikTok بسهولة وبجودة عالية
-</footer>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">🎁 Dark Gift</div>
+            <div class="footer-desc">أدوات • ألعاب • خلفيات • وأكثر</div>
+            <div class="footer-bottom">
+                © 2026 Dark Gift
+            </div>
+        </div>
+    </footer>
 
-<div class="modal" id="imageModal" onclick="closeModal()">
-    <span class="modal-close">&times;</span>
-    <img class="modal-content" id="modalImage" src="" alt="معاينة المكبرة">
-</div>
+    <div class="modal" id="imageModal" onclick="closeModal()">
+        <span class="modal-close">&times;</span>
+        <img class="modal-content" id="modalImage" src="" alt="معاينة">
+    </div>
 
-<script>
-// ربط دالة اللصق مباشرة بعنصر الزرار بحدث الماوس واللمس لتفادي حظر المتصفحات
-document.getElementById('pasteBtn').addEventListener('click', pasteFromClipboard);
-document.getElementById('pasteBtn').addEventListener('touchend', function(e) {
-    e.preventDefault();
-    pasteFromClipboard();
-});
+    <script>
+    document.getElementById('pasteBtn').addEventListener('click', pasteFromClipboard);
+    document.getElementById('pasteBtn').addEventListener('touchend', function(e) {
+        e.preventDefault();
+        pasteFromClipboard();
+    });
 
-async function pasteFromClipboard() {
-    const input = document.getElementById('linksInput');
-    input.focus();
+    async function pasteFromClipboard() {
+        const input = document.getElementById('linksInput');
+        input.focus();
 
-    if (navigator.clipboard && navigator.clipboard.readText) {
+        if (navigator.clipboard && navigator.clipboard.readText) {
+            try {
+                const text = await navigator.clipboard.readText();
+                if (text) {
+                    input.value = input.value ? input.value.trim() + '\n' + text.trim() : text.trim();
+                    return;
+                }
+            } catch (err) {
+                console.log('Permission declined or blocked');
+            }
+        }
+
         try {
-            const text = await navigator.clipboard.readText();
-            if (text) {
-                input.value = input.value ? input.value.trim() + '\n' + text.trim() : text.trim();
-                return;
+            document.execCommand('insertText', false, await navigator.clipboard.readText());
+        } catch (e) {
+            input.select();
+        }
+    }
+
+    async function processLinks() {
+        const input = document.getElementById('linksInput').value.trim();
+        const resultsContainer = document.getElementById('results');
+        const loader = document.getElementById('loader');
+
+        if (!input) {
+            alert('من فضلك ادخل رابط واحد على الأقل');
+            return;
+        }
+
+        let links = input.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+
+        if (links.length > 5) {
+            alert('تم تحديد أول 5 روابط فقط بناءً على الحد الأقصى');
+            links = links.slice(0, 5);
+        }
+
+        resultsContainer.innerHTML = '';
+        loader.style.display = 'block';
+
+        for (let i = 0; i < links.length; i++) {
+            await fetchTikTokData(links[i]);
+        }
+
+        loader.style.display = 'none';
+    }
+
+    async function fetchTikTokData(url) {
+        const resultsContainer = document.getElementById('results');
+
+        try {
+            const response = await fetch('https://www.tikwm.com/api/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    'url': url,
+                    'hd': 1
+                })
+            });
+
+            const resData = await response.json();
+
+            if (resData.code === 0 && resData.data) {
+                const item = resData.data;
+                const card = document.createElement('div');
+                card.className = 'card';
+
+                if (item.images && item.images.length > 0) {
+                    let imagesHTML = '';
+                    item.images.forEach((imgUrl, index) => {
+                        imagesHTML += `
+                            <div class="image-item">
+                                <img src="${imgUrl}" alt="صورة ${index + 1}" onclick="openModal('${imgUrl}')">
+                                <button onclick="downloadFile('${imgUrl}', 'tiktok_image_${index + 1}.jpeg', this)" class="btn-action" style="font-size: 0.75rem; padding: 8px; margin-top: 5px;">تنزيل</button>
+                                <button onclick="openModal('${imgUrl}')" class="btn-action btn-preview" style="font-size: 0.75rem; padding: 6px; margin-top: 4px;">🔍 معاينة</button>
+                            </div>
+                        `;
+                    });
+
+                    card.innerHTML = `
+                        <div class="card-header">
+                            <img class="thumb" src="${item.cover}" alt="غلاف" onclick="openModal('${item.cover}')">
+                            <div class="card-title">
+                                <strong>[ألبوم صور] (${item.images.length} صور)</strong><br>
+                                ${item.title || 'بدون عنوان'}
+                            </div>
+                        </div>
+                        <div><strong>اختر الصور للتحميل:</strong></div>
+                        <div class="images-gallery">${imagesHTML}</div>
+                    `;
+                } 
+                else {
+                    const musicUrl = item.music || item.music_info?.play;
+                    card.innerHTML = `
+                        <div class="card-header">
+                            <img class="thumb" src="${item.cover}" alt="غلاف">
+                            <div class="card-title">
+                                <strong>[فيديو]</strong><br>
+                                ${item.title || 'بدون عنوان'}
+                            </div>
+                        </div>
+                        <div class="actions-group">
+                            <button onclick="downloadFile('${item.play}', 'tiktok_video.mp4', this)" class="btn-action">🎬 تحميل فيديو</button>
+                            ${musicUrl ? `<button onclick="downloadFile('${musicUrl}', 'tiktok_audio.mp3', this)" class="btn-action btn-audio">🎵 تحميل صوت</button>` : ''}
+                            <button onclick="toggleVideoPreview(this, '${item.play}')" class="btn-action btn-preview">👁️ معاينة</button>
+                        </div>
+                        <div class="video-container" style="display:none;"></div>
+                    `;
+                }
+
+                resultsContainer.appendChild(card);
+            } else {
+                showErrorCard(url, 'تعذر جلب البيانات، تأكد من صحة الرابط');
             }
         } catch (err) {
-            console.log('Permission declined or blocked');
+            showErrorCard(url, 'حدث خطأ أثناء الاتصال بالسيرفر');
         }
     }
 
-    try {
-        document.execCommand('insertText', false, await navigator.clipboard.readText());
-    } catch (e) {
-        input.select();
-    }
-}
+    async function downloadFile(fileUrl, fileName, btnElement) {
+        btnElement.innerText = 'جاري... ⏳';
+        btnElement.disabled = true;
 
-async function processLinks() {
-    const input = document.getElementById('linksInput').value.trim();
-    const resultsContainer = document.getElementById('results');
-    const loader = document.getElementById('loader');
+        try {
+            const response = await fetch(fileUrl);
+            const blob = await response.blob();
+            
+            const blobUrl = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = blobUrl;
+            a.download = fileName;
+            
+            document.body.appendChild(a);
+            a.click();
+            
+            window.URL.revokeObjectURL(blobUrl);
+            document.body.removeChild(a);
 
-    if (!input) {
-        alert('من فضلك ادخل رابط واحد على الأقل');
-        return;
-    }
-
-    let links = input.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-
-    if (links.length > 5) {
-        alert('تم تحديد أول 5 روابط فقط بناءً على الحد الأقصى');
-        links = links.slice(0, 5);
-    }
-
-    resultsContainer.innerHTML = '';
-    loader.style.display = 'block';
-
-    for (let i = 0; i < links.length; i++) {
-        await fetchTikTokData(links[i]);
+            btnElement.innerText = 'تم ✅';
+            btnElement.classList.add('downloaded');
+        } catch (error) {
+            window.open(fileUrl, '_blank');
+            btnElement.innerText = 'تم ✅';
+            btnElement.classList.add('downloaded');
+        }
     }
 
-    loader.style.display = 'none';
-}
+    function showErrorCard(url, message) {
+        const resultsContainer = document.getElementById('results');
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.style.borderColor = '#ef4444';
+        card.innerHTML = `<div style="color: #ef4444;">❌ <strong>خطأ:</strong> ${message}<br><small>${url}</small></div>`;
+        resultsContainer.appendChild(card);
+    }
 
-async function fetchTikTokData(url) {
-    const resultsContainer = document.getElementById('results');
+    function toggleVideoPreview(btn, videoUrl) {
+        const card = btn.closest('.card');
+        const container = card.querySelector('.video-container');
 
-    try {
-        const response = await fetch('https://www.tikwm.com/api/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams({
-                'url': url,
-                'hd': 1
-            })
-        });
-
-        const resData = await response.json();
-
-        if (resData.code === 0 && resData.data) {
-            const item = resData.data;
-            const card = document.createElement('div');
-            card.className = 'card';
-
-            if (item.images && item.images.length > 0) {
-                let imagesHTML = '';
-                item.images.forEach((imgUrl, index) => {
-                    imagesHTML += `
-                        <div class="image-item">
-                            <img src="${imgUrl}" alt="صورة ${index + 1}" onclick="openModal('${imgUrl}')">
-                            <button onclick="downloadFile('${imgUrl}', 'tiktok_image_${index + 1}.jpeg', this)" class="btn-action" style="font-size: 0.75rem; padding: 8px; margin-top: 5px;">تنزيل</button>
-                            <button onclick="openModal('${imgUrl}')" class="btn-action btn-preview" style="font-size: 0.75rem; padding: 6px; margin-top: 4px;">🔍 معاينة</button>
-                        </div>
-                    `;
-                });
-
-                card.innerHTML = `
-                    <div class="card-header">
-                        <img class="thumb" src="${item.cover}" alt="غلاف" onclick="openModal('${item.cover}')">
-                        <div class="card-title">
-                            <strong>[ألبوم صور] (${item.images.length} صور)</strong><br>
-                            ${item.title || 'بدون عنوان'}
-                        </div>
-                    </div>
-                    <div><strong>اختر الصور للتحميل:</strong></div>
-                    <div class="images-gallery">${imagesHTML}</div>
-                `;
-            } 
-            else {
-                const musicUrl = item.music || item.music_info?.play;
-                card.innerHTML = `
-                    <div class="card-header">
-                        <img class="thumb" src="${item.cover}" alt="غلاف">
-                        <div class="card-title">
-                            <strong>[فيديو]</strong><br>
-                            ${item.title || 'بدون عنوان'}
-                        </div>
-                    </div>
-                    <div class="actions-group">
-                        <button onclick="downloadFile('${item.play}', 'tiktok_video.mp4', this)" class="btn-action">🎬 تحميل فيديو</button>
-                        ${musicUrl ? `<button onclick="downloadFile('${musicUrl}', 'tiktok_audio.mp3', this)" class="btn-action btn-audio">🎵 تحميل صوت</button>` : ''}
-                        <button onclick="toggleVideoPreview(this, '${item.play}')" class="btn-action btn-preview">👁️ معاينة</button>
-                    </div>
-                    <div class="video-container" style="display:none;"></div>
-                `;
-            }
-
-            resultsContainer.appendChild(card);
+        if (container.style.display === 'none') {
+            container.innerHTML = `<video class="preview-video" controls autoplay src="${videoUrl}"></video>`;
+            container.style.display = 'block';
+            btn.innerText = '❌ إخفاء';
         } else {
-            showErrorCard(url, 'تعذر جلب البيانات، تأكد من صحة الرابط');
+            container.innerHTML = '';
+            container.style.display = 'none';
+            btn.innerText = '👁️ معاينة';
         }
-    } catch (err) {
-        showErrorCard(url, 'حدث خطأ أثناء الاتصال بالسيرفر');
     }
-}
 
-async function downloadFile(fileUrl, fileName, btnElement) {
-    btnElement.innerText = 'جاري... ⏳';
-    btnElement.disabled = true;
-
-    try {
-        const response = await fetch(fileUrl);
-        const blob = await response.blob();
-        
-        const blobUrl = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = blobUrl;
-        a.download = fileName;
-        
-        document.body.appendChild(a);
-        a.click();
-        
-        window.URL.revokeObjectURL(blobUrl);
-        document.body.removeChild(a);
-
-        btnElement.innerText = 'تم ✅';
-        btnElement.classList.add('downloaded');
-    } catch (error) {
-        window.open(fileUrl, '_blank');
-        btnElement.innerText = 'تم ✅';
-        btnElement.classList.add('downloaded');
+    function openModal(imgSrc) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        modal.style.display = 'flex';
+        modalImg.src = imgSrc;
     }
-}
 
-function showErrorCard(url, message) {
-    const resultsContainer = document.getElementById('results');
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.style.borderColor = '#ef4444';
-    card.innerHTML = `<div style="color: #ef4444;">❌ <strong>خطأ:</strong> ${message}<br><small>${url}</small></div>`;
-    resultsContainer.appendChild(card);
-}
-
-function toggleVideoPreview(btn, videoUrl) {
-    const card = btn.closest('.card');
-    const container = card.querySelector('.video-container');
-
-    if (container.style.display === 'none') {
-        container.innerHTML = `<video class="preview-video" controls autoplay src="${videoUrl}"></video>`;
-        container.style.display = 'block';
-        btn.innerText = '❌ إخفاء';
-    } else {
-        container.innerHTML = '';
-        container.style.display = 'none';
-        btn.innerText = '👁️ معاينة';
+    function closeModal() {
+        document.getElementById('imageModal').style.display = 'none';
     }
-}
-
-function openModal(imgSrc) {
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImage');
-    modal.style.display = 'flex';
-    modalImg.src = imgSrc;
-}
-
-function closeModal() {
-    document.getElementById('imageModal').style.display = 'none';
-}
-</script>
-</body>
+    </script>
+  </body>
 </html>
