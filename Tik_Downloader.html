@@ -26,6 +26,10 @@
                 padding: 20px;
                 display: flex;
                 justify-content: center;
+                flex-direction: column;
+                align-items: center;
+                min-height: 100vh;
+                box-sizing: border-box;
             }
 
             .container {
@@ -123,7 +127,6 @@
                 font-weight: bold;
                 cursor: pointer;
                 margin-top: 10px;
-                transition: 0.2s;
                 display: block;
                 text-align: center;
                 text-decoration: none;
@@ -248,11 +251,14 @@
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
             }
 
             .container {
                 width: 100%;
-                min-height: 100vh;
+                flex: 1;
                 padding: 20px 16px;
                 box-sizing: border-box;
                 background: transparent;
@@ -478,27 +484,41 @@
             margin-top: 12px;
             background: #000;
         }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.85rem;
+            border-top: 1px solid #1e2d4a;
+            width: 100%;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>تحميل فيديوهات وصور تيك توك</h1>
-    <p class="subtitle">يمكنك تحميل حتى خمسة روابط في المرة الواحدة</p>
+    <h1>TikTok Downloader</h1>
+    <p class="subtitle">تحميل فيديوهات وصور TikTok بدون علامة مائية</p>
 
     <div class="input-group">
-        <textarea id="linksInput" placeholder="ضع روابط التيك توك هنا...&#10;مثال: https://vm.tiktok.com/"></textarea>
+        <textarea id="linksInput" placeholder="🔗 الصق رابط TikTok هنا..."></textarea>
         <button type="button" class="btn-paste" id="pasteBtn">📋 لصق من الحافظة</button>
         <div style="clear:both;"></div>
     </div>
     
-    <button class="btn-main" onclick="processLinks()">بدء التحليل والتحميل</button>
+    <button class="btn-main" onclick="processLinks()">⬇️ تحميل بدون علامة مائية</button>
     <a href="index.html" class="btn-back">⬅️ الرجوع للخلف</a>
 
     <div class="loader" id="loader">جاري العثور على الفيديوهات والصور...</div>
 
     <div class="results-grid" id="results"></div>
 </div>
+
+<footer>
+    حمّل محتوى TikTok بسهولة وبجودة عالية
+</footer>
 
 <div class="modal" id="imageModal" onclick="closeModal()">
     <span class="modal-close">&times;</span>
@@ -695,6 +715,16 @@ function toggleVideoPreview(btn, videoUrl) {
     }
 }
 
+function openModal(imgSrc) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    modal.style.display = 'flex';
+    modalImg.src = imgSrc;
+}
+
+function closeModal() {
+    document.getElementById('imageModal').style.display = 'none';
+}
 </script>
 </body>
 </html>
