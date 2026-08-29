@@ -3,19 +3,17 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Gift 🎁</title>
+    <title>Dark Gift — الرئيسية</title>
     <style>
       :root {
-        --bg-color: #0b0f19;
-        --card-bg: #131d31;
-        --card-hover: #1b2845;
-        --border-glow: rgba(0, 198, 255, 0.25);
-        --border-hover: #00c6ff;
-        --accent: #00c6ff;
-        --text-main: #f1f5f9;
-        --text-muted: #94a3b8;
-        --gold: #facc15;
-        --whatsapp-green: #25d366;
+        --primary: #0084ff;
+        --secondary: #00c6ff;
+        --bg: #090d16;
+        --card-bg: #131c2e;
+        --card-hover: #1b2842;
+        --text: #f1f5f9;
+        --text-muted: #64748b;
+        --border: #1e2d4a;
       }
 
       * {
@@ -24,307 +22,425 @@
         padding: 0;
       }
 
-      body { 
-        background: var(--bg-color);
-        background-image: 
-          radial-gradient(circle at 10% 20%, rgba(0, 198, 255, 0.05) 0%, transparent 40%),
-          radial-gradient(circle at 90% 80%, rgba(0, 132, 255, 0.05) 0%, transparent 40%);
-        color: var(--text-main); 
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-        display: flex; 
-        flex-direction: column; 
-        align-items: center; 
-        justify-content: center; 
-        min-height: 100vh; 
-        padding: 15px;
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        overflow-x: hidden;
       }
 
-      /* الهيدر المدمج */
-      .header-container {
-        text-align: center;
-        margin-bottom: 25px;
-      }
-
-      h1 { 
-        font-size: 1.8rem; 
-        color: var(--text-main); 
-        margin-bottom: 5px;
-        font-weight: 800;
-      }
-
-      h1 span {
-        color: var(--accent);
-        text-shadow: 0 0 15px rgba(0, 198, 255, 0.3);
-      }
-
-      .sub-title {
-        font-size: 0.95rem;
-        color: var(--text-muted);
-        font-weight: 500;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        background: rgba(255, 255, 255, 0.03);
-        padding: 4px 12px;
-        border-radius: 50px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-      }
-
-      /* شبكة المربعات (4 للكمبيوتر، 2 للموبايل محاذية ومنظمة) */
-      .menu-container {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 12px;
-        width: 100%;
-        max-width: 900px;
-        margin-bottom: 15px;
-      }
-
-      .menu-card {
-        background: var(--card-bg);
-        border: 1px solid var(--border-glow);
-        border-radius: 14px;
-        padding: 18px 12px;
-        text-decoration: none;
-        color: var(--text-main);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-        transition: all 0.25s ease;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-      }
-
-      .menu-card:hover {
-        background: var(--card-hover);
-        border-color: var(--border-hover);
-        transform: translateY(-4px);
-        box-shadow: 0 10px 25px rgba(0, 198, 255, 0.15);
-      }
-
-      .card-img, .card-icon-reel { 
-        width: 48px; 
-        height: 48px; 
-        object-fit: cover;
-        border-radius: 12px;
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 26px;
-        background: rgba(0, 0, 0, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-      }
-
-      .card-text {
-        display: flex;
-        flex-direction: column;
-        gap: 3px;
-      }
-
-      .card-title {
-        font-size: 0.95rem;
-        font-weight: 700;
-        color: #fff;
-      }
-
-      .card-sub {
-        font-size: 0.72rem;
-        color: var(--text-muted);
-      }
-
-      /* مستطيل الدعم والتواصل بنفس استايل كروتك */
-      .contact-card {
-        grid-column: span 4;
-        background: var(--card-bg);
-        border: 1px solid var(--border-glow);
-        border-radius: 14px;
-        padding: 16px 20px;
+      /* شريط الموقع — أعلى الصفحة */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 65px;
+        background: rgba(9, 13, 22, 0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 15px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-        text-align: right;
+        padding: 0 6%;
+        z-index: 1000;
       }
 
-      .contact-info h3 {
-        font-size: 0.95rem;
-        font-weight: 700;
-        color: #fff;
-        margin-bottom: 4px;
-      }
-
-      .contact-info p {
-        font-size: 0.78rem;
-        color: var(--text-muted);
-        line-height: 1.4;
-      }
-
-      .whatsapp-btn {
-        background: #25d366;
-        color: #fff;
+      .logo {
+        font-size: 1.15rem;
+        font-weight: 800;
+        color: var(--secondary);
         text-decoration: none;
-        padding: 8px 16px;
-        border-radius: 10px;
-        font-size: 0.85rem;
-        font-weight: 700;
-        display: inline-flex;
+        display: flex;
         align-items: center;
-        gap: 8px;
-        white-space: nowrap;
-        transition: all 0.25s ease;
+        gap: 6px;
       }
 
-      .whatsapp-btn:hover {
-        background: #1da851;
-        transform: translateY(-2px);
+      nav {
+        display: flex;
+        gap: 22px;
       }
 
-      /* شريط البركة المدمج */
-      .blessing-card {
-        width: 100%;
+      nav a {
+        color: #94a3b8;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: 0.2s;
+        padding: 6px 10px;
+        border-radius: 8px;
+      }
+
+      nav a:hover, nav a.active {
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      /* حاوية الصفحة */
+      .page-container {
         max-width: 900px;
-        background: var(--card-bg);
-        border: 1px solid var(--border-glow);
-        border-radius: 12px;
-        padding: 10px;
-        text-align: center;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        margin: 0 auto;
+        padding: 95px 20px 40px 20px;
       }
 
-      .daily-quote {
-        font-size: 0.95rem;
-        color: var(--text-main);
+      /* الواجهة الرئيسية — Hero */
+      .hero {
+        text-align: center;
+        padding: 45px 20px;
+        background: radial-gradient(circle at center, rgba(0, 102, 255, 0.08) 0%, transparent 70%);
+        border-radius: 20px;
+        margin-bottom: 35px;
+        border: 1px solid var(--border);
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+        font-weight: 800;
+        color: #ffffff;
+        margin: 0 0 10px 0;
+      }
+
+      .hero p {
+        color: var(--text-muted);
+        font-size: 1rem;
+        margin: 0;
         font-weight: 600;
       }
 
-      .sparkle {
-        color: var(--gold);
-        margin: 0 6px;
+      /* عناوين الأقسام */
+      .section-title {
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 18px;
+        text-align: right;
+        border-right: 4px solid var(--primary);
+        padding-right: 10px;
       }
 
-      /* التجاوب للموبايل: صفين من المربعات 2x2 والمستطيل بعرض المربعين */
+      /* الأقسام الرئيسية — كروت كبيرة بتصميم متناسق */
+      .categories-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-bottom: 35px;
+      }
+
+      .category-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 20px 24px;
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: 0.3s;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      }
+
+      .category-card:hover {
+        background: var(--card-hover);
+        border-color: var(--primary);
+        transform: translateY(-2px);
+      }
+
+      .category-info {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .category-icon {
+        font-size: 2.2rem;
+        background: #090d16;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        flex-shrink: 0;
+      }
+
+      .category-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 12px;
+      }
+
+      .category-text h3 {
+        margin: 0 0 4px 0;
+        font-size: 1.15rem;
+        color: #fff;
+        font-weight: 700;
+      }
+
+      .category-text p {
+        margin: 0;
+        color: var(--text-muted);
+        font-size: 0.88rem;
+      }
+
+      .category-link {
+        color: var(--secondary);
+        font-weight: 700;
+        font-size: 0.92rem;
+        transition: 0.2s;
+      }
+
+      .category-card:hover .category-link {
+        transform: translateX(-4px);
+      }
+
+      /* قسم "آخر الإضافات" — كروت صغيرة */
+      .updates-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 12px;
+        margin-bottom: 35px;
+      }
+
+      .update-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 15px 18px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      }
+
+      .update-icon {
+        font-size: 1.5rem;
+        background: #090d16;
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        flex-shrink: 0;
+      }
+
+      .update-text {
+        font-size: 0.92rem;
+        font-weight: 700;
+        color: #e2e8f0;
+      }
+
+      /* قسم التواصل المقترح */
+      .contact-section {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 25px;
+        text-align: center;
+        margin-bottom: 35px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      }
+
+      .contact-section h3 {
+        margin: 0 0 8px 0;
+        font-size: 1.15rem;
+        color: #fff;
+        font-weight: 700;
+      }
+
+      .contact-section p {
+        margin: 0 0 18px 0;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      .btn-whatsapp {
+        background: #25d366;
+        color: #fff;
+        padding: 11px 24px;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        text-decoration: none;
+        display: inline-block;
+        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        transition: 0.2s;
+      }
+
+      .btn-whatsapp:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+      }
+
+      /* Footer — أسفل الموقع */
+      footer {
+        background: #090d16;
+        border-top: 1px solid var(--border);
+        padding: 30px 20px;
+        text-align: center;
+      }
+
+      .footer-content {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .footer-logo {
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: var(--secondary);
+      }
+
+      .footer-desc {
+        color: var(--text-muted);
+        font-size: 0.88rem;
+        font-weight: 600;
+      }
+
+      .footer-bottom {
+        margin-top: 10px;
+        color: #475569;
+        font-size: 0.8rem;
+      }
+
+      /* تفاعل الموبايل */
       @media (max-width: 768px) {
-        .menu-container {
-          grid-template-columns: repeat(2, 1fr);
-          gap: 10px;
+        nav {
+          display: none;
         }
-        .menu-card {
-          padding: 14px 10px;
+        .hero h1 {
+          font-size: 1.6rem;
         }
-        .contact-card {
-          grid-column: span 2;
-          flex-direction: column;
-          text-align: center;
-          gap: 12px;
-          padding: 16px 12px;
+        .page-container {
+          padding: 85px 15px 30px 15px;
         }
-        .whatsapp-btn {
-          width: 100%;
-          justify-content: center;
-        }
-        .card-img, .card-icon-reel {
-          width: 40px;
-          height: 40px;
-          font-size: 22px;
-          margin-bottom: 8px;
-        }
-        .card-title {
-          font-size: 0.88rem;
-        }
-        .card-sub {
-          font-size: 0.68rem;
-        }
-        h1 { font-size: 1.5rem; }
       }
     </style>
   </head>
   <body>
 
-    <!-- الهيدر -->
-    <div class="header-container">
-      <h1><span>Dark Gift</span></h1>
-      <div class="sub-title">
-        <span>الموقع تحت التطوير</span>
-        <span id="device-emoji">💻</span>
-      </div>
-    </div>
+    <!-- شريط الموقع — أعلى الصفحة -->
+    <header>
+        <a href="#" class="logo">🎁 Dark Gift</a>
+        <nav>
+            <a href="#" class="active">الرئيسية</a>
+            <a href="wallpapers.html">الخلفيات</a>
+            <a href="games.html">الألعاب</a>
+            <a href="Tools.html">الأدوات</a>
+            <a href="Tik_Downloader.html">TikTok downloader</a>
+        </nav>
+    </header>
 
-    <!-- الكروت الرئيسية -->
-    <div class="menu-container">
-        <!-- كارت خلفيات رائعة -->
-        <a href="wallpapers.html" class="menu-card" id="wallpapers-btn">
-            <img src="https://i.postimg.cc/4y8CT3dF/wallpapers.png" alt="Wallpaper" class="card-img">
-            <div class="card-text">
-                <span class="card-title">خلفيات</span>
-                <span class="card-sub">🖼️ استعراض</span>
-            </div>
-        </a>
+    <div class="page-container">
 
-        <!-- كارت مكتبة الألعاب -->
-        <a href="games.html" class="menu-card" id="games-btn">
-            <div class="card-icon-reel">🎮</div>
-            <div class="card-text">
-                <span class="card-title">الألعاب</span>
-                <span class="card-sub">🕹️ تصفح</span>
-            </div>
-        </a>
+        <!-- الواجهة الرئيسية — Hero -->
+        <section class="hero">
+            <h1>🎁 Dark Gift</h1>
+            <p>كل حاجة مفيدة في مكان واحد</p>
+        </section>
 
-        <!-- كارت مركز الأدوات -->
-        <a href="Tools.html" class="menu-card" id="tools-btn">
-            <div class="card-icon-reel">🛠️</div>
-            <div class="card-text">
-                <span class="card-title">الأدوات</span>
-                <span class="card-sub">🧰 الورشة</span>
-            </div>
-        </a>
+        <!-- الأقسام الرئيسية -->
+        <div>
+            <h2 class="section-title">استكشف الأقسام</h2>
+            <div class="categories-grid">
+                <a href="wallpapers.html" class="category-card" id="wallpapers-btn">
+                    <div class="category-info">
+                        <div class="category-icon">
+                            <img src="https://i.postimg.cc/4y8CT3dF/wallpapers.png" alt="Wallpaper">
+                        </div>
+                        <div class="category-text">
+                            <h3>الخلفيات</h3>
+                            <p>خلفيات للموبايل بجودة عالية</p>
+                        </div>
+                    </div>
+                    <div class="category-link">استعراض ←</div>
+                </a>
 
-        <!-- كارت تحميل تيك توك -->
-        <a href="Tik_Downloader.html" class="menu-card" id="tiktok-btn">
-            <div class="card-icon-reel">🎵</div>
-            <div class="card-text">
-                <span class="card-title">تنزيل تيك توك</span>
-                <span class="card-sub">⚡ بدون علامة</span>
-            </div>
-        </a>
+                <a href="games.html" class="category-card" id="games-btn">
+                    <div class="category-info">
+                        <div class="category-icon">🎮</div>
+                        <div class="category-text">
+                            <h3>الألعاب</h3>
+                            <p>ألعاب بسيطة وممتعة</p>
+                        </div>
+                    </div>
+                    <div class="category-link">تصفح ←</div>
+                </a>
 
-        <!-- كارت الدعم والتواصل (مستطيل يأخذ عرض المربعين على الموبايل وعرض الـ 4 كروت على الشاشة الكبيرة) -->
-        <div class="contact-card">
-            <div class="contact-info">
-                <h3>لو عندك مشكلة أو أفكار جديدة؟ 🛠️</h3>
-                <p>إذا واجهتك أي مشكلة أو حابب تقترح إضافات جديدة للموقع، تواصل معنا مباشرة</p>
+                <a href="Tools.html" class="category-card" id="tools-btn">
+                    <div class="category-info">
+                        <div class="category-icon">🛠️</div>
+                        <div class="category-text">
+                            <h3>الأدوات</h3>
+                            <p>أدوات خدمية سريعة ومفيدة</p>
+                        </div>
+                    </div>
+                    <div class="category-link">استعراض ←</div>
+                </a>
+
+                <a href="Tik_Downloader.html" class="category-card" id="tiktok-btn">
+                    <div class="category-info">
+                        <div class="category-icon">🎵</div>
+                        <div class="category-text">
+                            <h3>TikTok Downloader</h3>
+                            <p>تحميل وتنزيل بدون علامة مائية</p>
+                        </div>
+                    </div>
+                    <div class="category-link">تصفح ←</div>
+                </a>
             </div>
-            <a href="https://wa.me/201098029320" target="_blank" class="whatsapp-btn">
-                💬 تواصل عبر واتساب
-            </a>
         </div>
+
+        <!-- قسم "ترقبوا" -->
+        <div>
+            <h2 class="section-title">✨ ترقبوا</h2>
+            <div class="updates-grid">
+                <div class="update-card">
+                    <div class="update-icon">🖼️</div>
+                    <div class="update-text">خلفيات جديدة يتم إضافتها يوميا</div>
+                </div>
+                <div class="update-card">
+                    <div class="update-icon">🎮</div>
+                    <div class="update-text">لعبة جديدة تضاف أسبوعيا</div>
+                </div>
+                <div class="update-card">
+                    <div class="update-icon">🛠️</div>
+                    <div class="update-text">أدوات تحدث دوريا</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم التواصل المقترح -->
+        <div class="contact-section">
+            <h3>💡 عندك فكرة؟</h3>
+            <p>لو عندك أداة أو لعبة أو إضافة تحب تشوفها في الموقع، ابعتلنا اقتراحك.</p>
+            <a href="https://wa.me/201098029320" target="_blank" class="whatsapp-btn btn-whatsapp">💬 تواصل معنا على واتساب</a>
+        </div>
+
     </div>
 
-    <!-- كارت النصيحة والصلاة على النبي -->
-    <div class="blessing-card">
-      <p id="daily-quote" class="daily-quote">
-        <span class="sparkle">✨</span> صَلِّ على النبي <span class="sparkle">✨</span>
-      </p> 
-    </div>
+    <!-- أسفل الموقع — Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">🎁 Dark Gift</div>
+            <div class="footer-desc">أدوات • ألعاب • خلفيات • وأكثر</div>
+            <div class="footer-bottom">
+                © 2026 Dark Gift
+            </div>
+        </div>
+    </footer>
 
-    <script>
-      function initAdaptiveRouting() {
-        const userAgent = navigator.userAgent.toLowerCase();
-        const emoji = document.getElementById('device-emoji');
-
-        if (/iphone|ipad|ipod/.test(userAgent)) {
-          emoji.innerText = "🍏"; 
-        } else if (/android/.test(userAgent)) {
-          emoji.innerText = "🤖"; 
-        } else {
-          emoji.innerText = "💻"; 
-        }
-      }
-
-      window.onload = initAdaptiveRouting;
-    </script>
   </body>
 </html>
