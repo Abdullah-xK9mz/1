@@ -15,6 +15,65 @@
         }
 
         /* =========================================================
+           شريط التبويبات العلوي (Navbar Styles)
+           ========================================================= */
+        .site-navbar {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #1e2d4a;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-sizing: border-box;
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+        }
+
+        .nav-brand {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        .nav-links li a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links li a:hover,
+        .nav-links li a.active {
+            color: #fff;
+            background: rgba(0, 132, 255, 0.15);
+            border: 1px solid rgba(0, 132, 255, 0.3);
+        }
+
+        /* =========================================================
            1. تصميم الكمبيوتر (Desktop Styles - للشاشات الأكبر من 768px)
            ========================================================= */
         @media (min-width: 769px) {
@@ -23,13 +82,23 @@
                 background-color: var(--bg);
                 color: var(--text);
                 margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                min-height: 100vh;
+                box-sizing: border-box;
+            }
+
+            .main-wrapper {
                 padding: 20px;
                 display: flex;
                 justify-content: center;
                 flex-direction: column;
                 align-items: center;
-                min-height: 100vh;
+                width: 100%;
                 box-sizing: border-box;
+                flex: 1;
             }
 
             .container {
@@ -254,6 +323,14 @@
                 display: flex;
                 flex-direction: column;
                 min-height: 100vh;
+            }
+
+            .main-wrapper {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                box-sizing: border-box;
             }
 
             .container {
@@ -498,22 +575,35 @@
 </head>
 <body>
 
-<div class="container">
-    <h1>TikTok Downloader</h1>
-    <p class="subtitle">تحميل فيديوهات وصور TikTok بدون علامة مائية</p>
-
-    <div class="input-group">
-        <textarea id="linksInput" placeholder="🔗 الصق رابط TikTok هنا..."></textarea>
-        <button type="button" class="btn-paste" id="pasteBtn">📋 لصق من الحافظة</button>
-        <div style="clear:both;"></div>
+<nav class="site-navbar">
+    <div class="nav-container">
+        <a href="index.html" class="nav-brand">⚡ Dark Gift</a>
+        <ul class="nav-links">
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="#" class="active">تيك توك</a></li>
+            <li><a href="index.html">الأدوات</a></li>
+        </ul>
     </div>
-    
-    <button class="btn-main" onclick="processLinks()">⬇️ تحميل بدون علامة مائية</button>
-    <a href="index.html" class="btn-back">⬅️ الرجوع للخلف</a>
+</nav>
 
-    <div class="loader" id="loader">جاري العثور على الفيديوهات والصور...</div>
+<div class="main-wrapper">
+    <div class="container">
+        <h1>TikTok Downloader</h1>
+        <p class="subtitle">تحميل فيديوهات وصور TikTok بدون علامة مائية</p>
 
-    <div class="results-grid" id="results"></div>
+        <div class="input-group">
+            <textarea id="linksInput" placeholder="🔗 الصق رابط TikTok هنا..."></textarea>
+            <button type="button" class="btn-paste" id="pasteBtn">📋 لصق من الحافظة</button>
+            <div style="clear:both;"></div>
+        </div>
+        
+        <button class="btn-main" onclick="processLinks()">⬇️ تحميل بدون علامة مائية</button>
+        <a href="index.html" class="btn-back">⬅️ الرجوع للخلف</a>
+
+        <div class="loader" id="loader">جاري العثور على الفيديوهات والصور...</div>
+
+        <div class="results-grid" id="results"></div>
+    </div>
 </div>
 
 <footer>
@@ -537,7 +627,6 @@ async function pasteFromClipboard() {
     const input = document.getElementById('linksInput');
     input.focus();
 
-    // 1. تجربة جلب النص عبر API الحافظة المباشر لإظهار نافذة السماح/الرفض
     if (navigator.clipboard && navigator.clipboard.readText) {
         try {
             const text = await navigator.clipboard.readText();
@@ -550,7 +639,6 @@ async function pasteFromClipboard() {
         }
     }
 
-    // 2. بديل آمن وسريع في حال تم حظر الصلاحية من المتصفح (يفتح خيار اللصق المنبثق فوق لوحة المفاتيح فوراً)
     try {
         document.execCommand('insertText', false, await navigator.clipboard.readText());
     } catch (e) {
@@ -607,7 +695,6 @@ async function fetchTikTokData(url) {
             const card = document.createElement('div');
             card.className = 'card';
 
-            // ألبوم صور
             if (item.images && item.images.length > 0) {
                 let imagesHTML = '';
                 item.images.forEach((imgUrl, index) => {
@@ -632,7 +719,6 @@ async function fetchTikTokData(url) {
                     <div class="images-gallery">${imagesHTML}</div>
                 `;
             } 
-            // فيديو عادي
             else {
                 const musicUrl = item.music || item.music_info?.play;
                 card.innerHTML = `
@@ -661,7 +747,6 @@ async function fetchTikTokData(url) {
     }
 }
 
-// دالة تنزيل الملفات
 async function downloadFile(fileUrl, fileName, btnElement) {
     btnElement.innerText = 'جاري... ⏳';
     btnElement.disabled = true;
