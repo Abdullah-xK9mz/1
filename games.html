@@ -385,10 +385,26 @@
   .flappy-pipe{ width: 65px; background-color: #eab308; border: 3px solid #ca8a04; position: absolute; z-index: 2; background-image: linear-gradient(90deg, transparent 50%, rgba(202,138,4,0.3) 50%), linear-gradient(rgba(202,138,4,0.3) 50%, transparent 50%); background-size: 15px 15px; pointer-events: none; }
   .flappy-screen{ position: absolute; inset: 0; background-color: rgba(5,6,10,0.85); backdrop-filter: blur(6px); display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--ink); text-align: center; padding: 20px; z-index: 20; }
 
-  @media (max-width: 768px) {
-    nav { display: none; }
-    .hero h1 { font-size: 1.6rem; }
-  }
+ @media (max-width: 768px) {
+    header {
+        padding: 0 15px;
+    }
+    nav {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        max-width: 65%;
+        scrollbar-width: none;
+    }
+    nav::-webkit-scrollbar {
+        display: none;
+    }
+    nav a {
+        font-size: 0.78rem;
+        padding: 4px 8px;
+        white-space: nowrap;
+    }
+}
 </style>
 </head>
 <body>
@@ -400,8 +416,8 @@
           <a href="index.html">الرئيسية</a>
           <a href="wallpapers.html">الخلفيات</a>
           <a href="games.html" class="active">الألعاب</a>
-          <a href="Tools.html">الأدوات</a>
           <a href="Tik_Downloader.html">TikTok Downloader</a>
+          <a href="Tools.html">الأدوات</a>
       </nav>
   </header>
 
