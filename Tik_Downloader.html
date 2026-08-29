@@ -385,20 +385,26 @@
       }
 
       /* تفاعل الموبايل */
-      @media (max-width: 768px) {
-        nav {
-          display: none;
-        }
-        .page-container {
-          padding: 85px 15px 30px 15px;
-        }
-        .container {
-          padding: 16px;
-          border: none;
-          background: transparent;
-          box-shadow: none;
-        }
-      }
+@media (max-width: 768px) {
+    header {
+        padding: 0 15px;
+    }
+    nav {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        max-width: 65%;
+        scrollbar-width: none;
+    }
+    nav::-webkit-scrollbar {
+        display: none;
+    }
+    nav a {
+        font-size: 0.78rem;
+        padding: 4px 8px;
+        white-space: nowrap;
+    }
+}
     </style>
   </head>
   <body>
@@ -409,8 +415,8 @@
             <a href="index.html">الرئيسية</a>
             <a href="wallpapers.html">الخلفيات</a>
             <a href="games.html">الألعاب</a>
-            <a href="Tools.html">الأدوات</a>
             <a href="Tik_Downloader.html" class="active">TikTok Downloader</a>
+            <a href="Tools.html">الأدوات</a>
         </nav>
     </header>
 
@@ -421,7 +427,7 @@
 
             <div class="input-group">
                 <textarea id="linksInput" placeholder="🔗 الصق رابط تيك توك هنا..."></textarea>
-                <button type="button" class="btn-paste" id="pasteBtn">📋 لصق</button>
+                <button type="button" class="btn-paste" id="pasteBtn">📋 لصق من الحافظة</button>
                 <div style="clear:both;"></div>
             </div>
             
