@@ -32,15 +32,14 @@
         overflow-x: hidden;
       }
 
-      /* شريط الموقع — أعلى الصفحة */
+      /* شريط الموقع — أعلى الصفحة (تم إزالة البورلار الثقيل لمنع التعليق) */
       header {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         height: 65px;
-        background: rgba(9, 13, 22, 0.85);
-        backdrop-filter: blur(12px);
+        background: #090d16;
         border-bottom: 1px solid var(--border);
         display: flex;
         align-items: center;
@@ -153,13 +152,7 @@
         display: flex;
         flex-direction: column;
         position: relative;
-        transition: 0.3s;
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      }
-
-      .wallpaper-card:hover {
-        transform: translateY(-3px);
-        border-color: var(--primary);
       }
 
       .wallpaper-img-container {
@@ -190,7 +183,6 @@
         font-weight: 700;
         text-align: center;
         cursor: pointer;
-        backdrop-filter: blur(4px);
         transition: 0.2s;
         box-shadow: 0 2px 8px rgba(0,0,0,0.3);
       }
@@ -208,8 +200,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(9, 13, 22, 0.95);
-        backdrop-filter: blur(10px);
+        background: rgba(9, 13, 22, 0.98);
         align-items: center;
         justify-content: center;
         flex-direction: column;
@@ -354,7 +345,7 @@
             <button class="filter-btn" onclick="filterCategory('cosmos', this)">Cosmos</button>
         </div>
 
-        <!-- حاوية عرض الخلفيات (بدون عناوين أقسام في وضع الكل) -->
+        <!-- حاوية عرض الخلفيات -->
         <div id="dynamic-gallery-container">
             <!-- سيتم تعبئة الصور هنا ديناميكياً بواسطة JavaScript -->
         </div>
@@ -422,7 +413,27 @@
           "https://i.postimg.cc/JzSC69wk/photo-football-6.jpg",
           "https://i.postimg.cc/VNMQ3D1j/photo-football-7.jpg",
           "https://i.postimg.cc/K8ChqdXT/photo-football-8.jpg",
-          "https://i.postimg.cc/9fT5vJVJ/photo-football-9.jpg"
+          "https://i.postimg.cc/9fT5vJVJ/photo-football-9.jpg",
+          "https://i.postimg.cc/sgPx4dtw/tiktok-image-3-(1).jpg",
+          "https://i.postimg.cc/9fWMxg2H/tiktok-image-5.jpg",
+          "https://i.postimg.cc/q7kRmDTW/tiktok-image-11.jpg",
+          "https://i.postimg.cc/cL7CByVh/tiktok-image-8-(2).jpg",
+          "https://i.postimg.cc/bvzJ6VhB/tiktok-image-8.jpg",
+          "https://i.postimg.cc/tgXTrvjD/tiktok-image-1.jpg",
+          "https://i.postimg.cc/s2VXnHr0/tiktok-image-14.jpg",
+          "https://i.postimg.cc/kgNGv3kW/tiktok-image-7-(1).jpg",
+          "https://i.postimg.cc/0N8QtXsn/tiktok-image-2-(1).jpg",
+          "https://i.postimg.cc/cJsHDkWW/tiktok-image-9.jpg",
+          "https://i.postimg.cc/LsHXyQpw/tiktok-image-4.jpg",
+          "https://i.postimg.cc/CKF1vrgv/tiktok-image-12.jpg",
+          "https://i.postimg.cc/W4239YvK/tiktok-image-6.jpg",
+          "https://i.postimg.cc/1z9tW7QK/tiktok-image-8-(1).jpg",
+          "https://i.postimg.cc/pd2T0cvH/tiktok-image-3.jpg",
+          "https://i.postimg.cc/XYKqkSTk/tiktok-image-5-(1).jpg",
+          "https://i.postimg.cc/bvzJ6Vh7/tiktok-image-7.jpg",
+          "https://i.postimg.cc/N0gMNCc1/tiktok-image-4-(1).jpg",
+          "https://i.postimg.cc/Gpc2MgCG/tiktok-image-14-(1).jpg",
+          "https://i.postimg.cc/nhKrGb6T/tiktok-image-6-(1).jpg"
         ],
         cars: [
           "https://i.postimg.cc/nc7zGY9h/1-(1).jpg",
@@ -470,16 +481,6 @@
           "https://i.postimg.cc/d0BrdzYY/Aha-Tik-wallp4-k-5f3bdccd-9cf6-4367-9025-14fab6e60d89.jpg",
           "https://i.postimg.cc/fbKmX6NQ/Aha-Tik-wallp4-k-86f75850-4f0c-4750-9754-9202bdf8cc0d.jpg",
           "https://i.postimg.cc/xdRMHW2j/Aha-Tik-wallp4-k-a4994e10-adea-4e6d-89bd-50a5ba60450f.jpg",
-"https://i.postimg.cc/rwrbvffw/Screenshot-20260830-065537-One-UI-Home.jpg](https://i.postimg.cc/rwrbvffw/Screenshot-20260830-065537-One-UI-Home.jpg",
-"https://i.postimg.cc/rwrbvffp/Screenshot-20260830-065554-One-UI-Home.jpg](https://i.postimg.cc/rwrbvffp/Screenshot-20260830-065554-One-UI-Home.jpg",
-"https://i.postimg.cc/YCWVJddq/Screenshot-20260830-151932-One-UI-Home.jpg](https://i.postimg.cc/YCWVJddq/Screenshot-20260830-151932-One-UI-Home.jpg",
-"https://i.postimg.cc/dVyXz55w/Screenshot-20260830-151950-One-UI-Home.jpg](https://i.postimg.cc/dVyXz55w/Screenshot-20260830-151950-One-UI-Home.jpg",
-"https://i.postimg.cc/HkyKf661/Screenshot-20260830-152004-One-UI-Home.jpg](https://i.postimg.cc/HkyKf661/Screenshot-20260830-152004-One-UI-Home.jpg",
-"https://i.postimg.cc/nhD5630y/Screenshot-20260830-152017-One-UI-Home.jpg](https://i.postimg.cc/nhD5630y/Screenshot-20260830-152017-One-UI-Home.jpg",
-"https://i.postimg.cc/fR9F68Bg/Screenshot-20260830-152036-One-UI-Home.jpg](https://i.postimg.cc/fR9F68Bg/Screenshot-20260830-152036-One-UI-Home.jpg",
-"https://i.postimg.cc/Jzkg9pPS/Screenshot-20260830-152047-One-UI-Home.jpg](https://i.postimg.cc/Jzkg9pPS/Screenshot-20260830-152047-One-UI-Home.jpg",
-"https://i.postimg.cc/nc5gRyGf/Screenshot-20260830-152110-One-UI-Home.jpg](https://i.postimg.cc/nc5gRyGf/Screenshot-20260830-152110-One-UI-Home.jpg",
-"https://i.postimg.cc/7YcdsFMt/Screenshot-20260830-161016-One-UI-Home.jpg](https://i.postimg.cc/7YcdsFMt/Screenshot-20260830-161016-One-UI-Home.jpg",
           "https://i.postimg.cc/nLkB76Jh/Aha-Tik-wallp4-k-adb93870-ee11-483a-a629-4b849eab678e.jpg"
         ],
         cosmos: [
@@ -510,7 +511,6 @@
           "https://i.postimg.cc/dVwbnyC3/tiktok-image-7.jpg",
           "https://i.postimg.cc/RZ4kGHtW/tiktok-image-8.jpg",
           "https://i.postimg.cc/52bhpCzF/tiktok-image-9.jpg"
-
         ]
       };
 
@@ -524,7 +524,7 @@
         return arr;
       }
 
-      // إنشاء عنصر كارت خلفية جاهز
+      // إنشاء عنصر كارت خلفية مع تفعيل التحميل الكسول (Lazy Loading) لضمان نعومة السكرول
       function createWallpaperCard(url) {
         const card = document.createElement('div');
         card.className = 'wallpaper-card';
@@ -536,6 +536,7 @@
         const img = document.createElement('img');
         img.src = url;
         img.alt = 'Wallpaper';
+        img.loading = 'lazy'; // ميزة تمنع تهنيج السكرول وتحمل الصور حسب ظهورها
         imgContainer.appendChild(img);
 
         const btn = document.createElement('button');
@@ -563,7 +564,6 @@
         galleryGrid.className = 'gallery';
 
         if (category === 'all') {
-          // تجميع كل الصور في مصفوفة واحدة وخلطها بشكل كامل (متلخبطة في بعضها)
           let allImages = [];
           Object.values(categoriesData).forEach(arr => {
             allImages = allImages.concat(arr);
@@ -574,7 +574,6 @@
             galleryGrid.appendChild(createWallpaperCard(url));
           });
         } else {
-          // عرض صور القسم المحدد فقط بدون أي عناوين أقسام فرعية
           if (categoriesData[category]) {
             categoriesData[category].forEach(url => {
               galleryGrid.appendChild(createWallpaperCard(url));
@@ -605,9 +604,10 @@
         }
       }
 
+      // دالة التحميل عبر Fetch / Blob
       async function downloadImage(url) {
         try {
-          const response = await fetch(url);
+          const response = await fetch(url, { mode: 'cors' });
           const blob = await response.blob();
           const blobUrl = window.URL.createObjectURL(blob);
           const a = document.createElement('a');
