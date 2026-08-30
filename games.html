@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>ألعاب Dark Gift 🎮</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --primary: #0084ff;
@@ -42,7 +42,7 @@
     overflow-x: hidden;
     background: var(--bg);
     color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, 'IBM Plex Sans Arabic', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
   }
@@ -64,6 +64,7 @@
         justify-content: space-between;
         padding: 0 6%;
         z-index: 1000;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       }
 
       .logo {
@@ -409,7 +410,6 @@
 </head>
 <body>
 
-  <!-- شريط الموقع — أعلى الصفحة -->
   <header>
       <a href="index.html" class="logo">🎁 Dark Gift</a>
       <nav>
@@ -420,7 +420,6 @@
       </nav>
   </header>
 
-  <!-- ==================== القائمة الرئيسية (صفحة الألعاب) ==================== -->
   <div id="page-menu" class="view-page active">
     <div class="page-container-menu">
 
@@ -479,7 +478,6 @@
 
     </div>
 
-    <!-- Footer داخل القائمة -->
     <footer>
       <div class="footer-content">
         <div class="footer-logo">🎁 Dark Gift</div>
@@ -489,7 +487,6 @@
     </footer>
   </div>
 
-  <!-- ==================== 1. لعبة كروت الذاكرة ==================== -->
   <div id="page-memory" class="view-page">
     <div id="mem-winOverlay" class="overlay-modal">
       <h2>🏆 عاش يا وحش!</h2>
@@ -516,7 +513,6 @@
     </div>
   </div>
 
-  <!-- ==================== 2. لعبة إكس أو ==================== -->
   <div id="page-ox" class="view-page">
     <div id="ox-winOverlay" class="overlay-modal">
       <h2 id="ox-winTitle">🏆 الفائز!</h2>
@@ -543,7 +539,6 @@
     </div>
   </div>
 
-  <!-- ==================== 3. لعبة الطائر المغامر ==================== -->
   <div id="page-flappy" class="view-page">
     <div id="flappy-container">
       <div class="flappy-score" id="flappy-score-val">0</div>
