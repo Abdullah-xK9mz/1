@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>ألعاب Dark Gift 🎮</title>
+<title>ألعاب Dark Hub 🎮</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
 <style>
@@ -16,105 +16,89 @@
     --text: #f1f5f9;
     --text-muted: #64748b;
     --border: #1e2d4a;
-    
-    --panel: #12151c;
-    --panel-trans: #12151cdd;
-    --panel-line: #232833;
     --ink: #e7ebf2;
     --ink-dim: #8892a0;
     --cyan: #3ec9d6;
-    --cyan-dim: #14343a;
     --pink: #ff3d7f;
-    --pink-dim: #3d1526;
-    --amber: #f2b134;
-    --win: #52d17c;
-    --card-back-1: #1a2130;
-    --card-back-2: #232c40;
-    --card-front: #171b24;
-    --cell-bg: #0d1016;
-    --cell-hover: #171b24;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html, body {
-    width: 100vw; height: 100vh;
-    overflow-x: hidden;
+  html {
+    width: 100%;
     background: var(--bg);
     color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
+    overflow-y: scroll;
+  }
+
+  body {
+    width: 100%;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    overflow-y: visible;
   }
 
   .mono{ font-family: 'JetBrains Mono', monospace; }
 
- /* شريط الموقع — أعلى الصفحة */
-      header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 65px;
-        background: rgba(9, 13, 22, 0.85);
-        backdrop-filter: blur(12px);
-        border-bottom: 1px solid var(--border);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 6%;
-        z-index: 1000;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      }
-
-      .logo {
-        font-size: 1.15rem;
-        font-weight: 800;
-        color: var(--secondary);
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-
-      nav {
-        display: flex;
-        gap: 22px;
-      }
-
-      nav a {
-        color: #94a3b8;
-        text-decoration: none;
-        font-size: 0.9rem;
-        font-weight: 600;
-        transition: 0.2s;
-        padding: 6px 10px;
-        border-radius: 8px;
-      }
-
-      nav a:hover, nav a.active {
-        color: #ffffff;
-        background: rgba(255, 255, 255, 0.04);
-      }
-
-  /* ===== إدارة الصفحات ===== */
-  .view-page {
-    display: none;
-    width: 100%;
-    min-height: 100vh;
-    position: absolute;
-    top: 0; left: 0;
-    overflow-y: auto;
+  /* شريط الموقع — أعلى الصفحة */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 65px;
+    background: rgba(9, 13, 22, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6%;
+    z-index: 1000;
   }
-  .view-page.active {
+
+  .logo {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--secondary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  nav {
+    display: flex;
+    gap: 22px;
+  }
+
+  nav a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: 0.2s;
+    padding: 6px 10px;
+    border-radius: 8px;
+  }
+
+  nav a:hover, nav a.active {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  /* ===== الهيكل الرئيسي للقائمة ===== */
+  .view-page {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  /* ===== القائمة الرئيسية (صفحة الألعاب المحدثة) ===== */
-  #page-menu {
-    justify-content: flex-start;
+    width: 100%;
+    min-height: 100vh;
     padding: 95px 20px 40px 20px;
   }
 
@@ -303,115 +287,29 @@
     font-size: 0.8rem;
   }
 
-  /* ===== عناصر مشتركة داخل الألعاب ===== */
-  .btn-nav-back {
-    padding: 9px 20px;
-    font-size: 13.5px;
-    font-family: inherit;
-    font-weight: 700;
-    background: var(--panel);
-    color: var(--ink);
-    border: 1px solid var(--panel-line);
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.2s;
-  }
-  .btn-nav-back:hover { border-color: var(--cyan); }
-
-  .eyebrow{
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: #00f3ff;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-
-  /* ===== 1. لعبة كروت الذاكرة ===== */
-  #page-memory {
-    padding: 85px 14px 34px;
-    background-image:
-      radial-gradient(circle at 10% 0%, rgba(255,61,127,0.08), transparent 40%),
-      radial-gradient(circle at 90% 100%, rgba(62,201,214,0.08), transparent 40%);
-  }
-  #page-memory h1{ font-size: clamp(22px, 5vw, 30px); font-weight: 700; margin: 0 0 18px; text-align:center; }
-  #page-memory h1 span{ color: var(--pink); }
-  .hud{ display:flex; flex-wrap: wrap; gap: 10px; justify-content:center; margin-bottom: 20px; }
-  .stat-pill{ background: var(--panel); border: 1px solid var(--panel-line); border-radius: 12px; padding: 10px 18px; display:flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-dim); }
-  .stat-pill b{ font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 700; }
-  .stat-moves b{ color: var(--cyan); }
-  .stat-matches b{ color: var(--pink); }
-  .select-wrap{ position: relative; }
-  select{ background: var(--panel); color: var(--ink); border: 1px solid var(--panel-line); padding: 10px 16px; font-size: 13px; font-family: inherit; font-weight: 600; border-radius: 12px; outline: none; cursor: pointer; appearance: none; padding-left: 30px; }
-  .select-wrap::after{ content: "▾"; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--ink-dim); pointer-events: none; font-size: 12px; }
-  .game-grid{ display: grid; gap: 9px; width: 100%; max-width: 460px; perspective: 1000px; margin-bottom: 22px; }
-  .card{ aspect-ratio: 1 / 1; position: relative; transform-style: preserve-3d; transition: transform 0.45s cubic-bezier(.4,0,.2,1); cursor: pointer; }
-  .card.flipped{ transform: rotateY(180deg); }
-  .card-face{ position: absolute; inset: 0; backface-visibility: hidden; border-radius: 10px; display:flex; align-items:center; justify-content:center; font-size: 1.7rem; border: 1px solid var(--panel-line); }
-  .card-back{ background: linear-gradient(145deg, var(--card-back-1), var(--card-back-2)); color: var(--cyan); box-shadow: 0 3px 10px rgba(0,0,0,0.25); }
-  .card-back::after{ content: "?"; font-family: 'JetBrains Mono', monospace; font-weight: 700; opacity: 0.55; }
-  .card-front{ background: var(--card-front); border-color: var(--pink); transform: rotateY(180deg); box-shadow: 0 0 0 1px var(--pink) inset; }
-  .card.matched .card-front{ border-color: var(--win); box-shadow: 0 0 0 1px var(--win) inset; opacity: 0.55; }
-  .actions{ display:flex; flex-direction: column; align-items:center; gap: 12px; }
-  #mem-reset-btn{ padding: 10px 26px; font-size: 14px; font-weight: 700; font-family: inherit; background: transparent; color: var(--pink); border: 2px solid var(--pink); border-radius: 10px; cursor: pointer; transition: all 0.25s; }
-  #mem-reset-btn:hover{ background: var(--pink); color: #1a0510; }
-  .overlay-modal{ display:none; position: fixed; inset:0; background: rgba(6,7,10,0.92); backdrop-filter: blur(6px); z-index: 999; justify-content:center; align-items:center; flex-direction: column; padding: 24px; text-align:center; }
-  .overlay-modal h2{ font-size: clamp(24px, 6vw, 34px); color: var(--win); margin: 0 0 10px; }
-  .overlay-modal p{ font-size: 15px; color: var(--ink-dim); margin: 0 0 26px; max-width: 320px; }
-  .win-btn{ background: var(--cyan); color: #04202a; border:none; padding: 13px 28px; border-radius: 10px; font-family: inherit; font-weight: 700; font-size: 15px; cursor: pointer; }
-
-  /* ===== 2. لعبة إكس أو ===== */
-  #page-ox {
-    padding: 85px 14px 34px;
-    background-image:
-      radial-gradient(circle at 10% 0%, rgba(62,201,214,0.08), transparent 40%),
-      radial-gradient(circle at 90% 100%, rgba(255,61,127,0.08), transparent 40%);
-  }
-  #page-ox h1{ font-size: clamp(22px, 5vw, 30px); font-weight: 700; margin: 0 0 18px; text-align:center; }
-  #page-ox h1 span{ color: var(--cyan); }
-  .ox-grid{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; max-width: 340px; aspect-ratio: 1 / 1; margin-bottom: 22px; }
-  .ox-cell{ background: var(--cell-bg); border: 1px solid var(--panel-line); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 2.8rem; font-weight: 700; cursor: pointer; transition: 0.2s; }
-  .ox-cell:hover{ background: var(--cell-hover); border-color: var(--cyan); }
-  .ox-cell.x{ color: var(--cyan); }
-  .ox-cell.o{ color: var(--pink); }
-  .ox-cell.win{ background: rgba(82,209,124,0.15); border-color: var(--win); }
-
-  /* ===== 3. لعبة الطائر المغامر ===== */
-  #page-flappy { overflow: hidden; padding-top: 65px; }
-  #flappy-container{ width: 100%; height: calc(100vh - 65px); background: linear-gradient(to bottom, #38bdf8, #bae6fd); position: relative; overflow: hidden; }
-  .flappy-score{ position: absolute; top: 18px; left: 50%; transform: translateX(-50%); background: var(--panel-trans); backdrop-filter: blur(6px); border: 1px solid var(--panel-line); border-radius: 999px; padding: 8px 22px; font-size: 1.4rem; font-weight: 700; color: var(--amber); z-index: 5; pointer-events: none; }
-  .pause-btn-circle{ position: absolute; top: 14px; right: 14px; background: var(--panel-trans); backdrop-filter: blur(6px); color: var(--ink); border: 1px solid var(--panel-line); width: 44px; height: 44px; border-radius: 50%; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 30; }
-  #flappy-bird{ width: 42px; height: 32px; background: linear-gradient(160deg, #ffd76a, var(--amber) 70%); border: 2px solid #b8790f; border-radius: 50%; position: absolute; left: 15%; top: 40%; z-index: 3; transition: transform 0.12s ease; box-shadow: 0 3px 10px rgba(0,0,0,0.2); pointer-events: none; }
-  #flappy-bird::before{ content: ''; position: absolute; top: 6px; right: 9px; width: 6px; height: 6px; background-color: #1a1204; border-radius: 50%; }
-  #flappy-bird::after{ content: ''; position: absolute; top: 10px; right: -10px; width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 12px solid var(--pink); }
-  .flappy-pipe{ width: 65px; background-color: #eab308; border: 3px solid #ca8a04; position: absolute; z-index: 2; background-image: linear-gradient(90deg, transparent 50%, rgba(202,138,4,0.3) 50%), linear-gradient(rgba(202,138,4,0.3) 50%, transparent 50%); background-size: 15px 15px; pointer-events: none; }
-  .flappy-screen{ position: absolute; inset: 0; background-color: rgba(5,6,10,0.85); backdrop-filter: blur(6px); display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--ink); text-align: center; padding: 20px; z-index: 20; }
-
- @media (max-width: 768px) {
-    header {
-        padding: 0 15px;
-    }
+  @media (max-width: 768px) {
+    header { padding: 0 15px; }
     nav {
-        display: flex;
-        gap: 8px;
-        overflow-x: auto;
-        max-width: 65%;
-        scrollbar-width: none;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      max-width: 65%;
+      scrollbar-width: none;
     }
-    nav::-webkit-scrollbar {
-        display: none;
-    }
+    nav::-webkit-scrollbar { display: none; }
     nav a {
-        font-size: 0.78rem;
-        padding: 4px 8px;
-        white-space: nowrap;
+      font-size: 0.78rem;
+      padding: 4px 8px;
+      white-space: nowrap;
     }
-}
+  }
 </style>
 </head>
 <body>
 
+  <!-- شريط التنقل العلوي -->
   <header>
-      <a href="index.html" class="logo">🎁 Dark Gift</a>
+      <a href="index.html" class="logo">Dark Hub</a>
       <nav>
           <a href="index.html">الرئيسية</a>
           <a href="wallpapers.html">الخلفيات</a>
@@ -420,18 +318,21 @@
       </nav>
   </header>
 
-  <div id="page-menu" class="view-page active">
+  <!-- محتوى صفحة الألعاب الرئيسي -->
+  <div class="view-page">
     <div class="page-container-menu">
 
       <section class="hero">
-        <h1>🎮 ألعاب Dark Gift</h1>
+        <h1>🎮 ألعاب Dark Hub</h1>
         <p>ألعاب بسيطة وممتعة</p>
       </section>
 
       <div>
         <h2 class="section-title">اختر لعبة</h2>
         <div class="categories-grid">
-          <div class="category-card" onclick="switchPage('page-ox')">
+          
+          <!-- زر لعبة XO -->
+          <a href="ox.html" class="category-card">
             <div class="category-info">
               <div class="category-icon">🎮</div>
               <div class="category-text">
@@ -440,9 +341,10 @@
               </div>
             </div>
             <div class="category-link">العب الآن ←</div>
-          </div>
+          </a>
 
-          <div class="category-card" onclick="switchPage('page-memory')">
+          <!-- زر لعبة Memory -->
+          <a href="memory.html" class="category-card">
             <div class="category-info">
               <div class="category-icon">🧠</div>
               <div class="category-text">
@@ -451,9 +353,10 @@
               </div>
             </div>
             <div class="category-link">العب الآن ←</div>
-          </div>
+          </a>
 
-          <div class="category-card" onclick="switchPage('page-flappy')">
+          <!-- زر لعبة Flappy Bird -->
+          <a href="flappy.html" class="category-card">
             <div class="category-info">
               <div class="category-icon">🐦</div>
               <div class="category-text">
@@ -462,15 +365,28 @@
               </div>
             </div>
             <div class="category-link">العب الآن ←</div>
-          </div>
+          </a>
+
+          <!-- زر اللعبة الجديدة (Space Shooter مثلاً أو أي لعبة جديدة) -->
+          <a href="space_shooter.html" class="category-card">
+            <div class="category-info">
+              <div class="category-icon">🚀</div>
+              <div class="category-text">
+                <h3>Space Shooter</h3>
+                <p>حرب الفضاء والمغامرة</p>
+              </div>
+            </div>
+            <div class="category-link">العب الآن ←</div>
+          </a>
+
         </div>
       </div>
 
       <div>
-        <h2 class="section-title">3. قريبًا</h2>
+        <h2 class="section-title">قريبًا</h2>
         <div class="updates-grid">
           <div class="update-card" style="width: 100%;">
-            <div class="update-icon">🚀</div>
+            <div class="update-icon">✨</div>
             <div class="update-text">ألعاب جديدة قريبًا — بنضيف ألعاب جديدة للموقع باستمرار.</div>
           </div>
         </div>
@@ -478,366 +394,15 @@
 
     </div>
 
+    <!-- تذييل الصفحة -->
     <footer>
       <div class="footer-content">
-        <div class="footer-logo">🎁 Dark Gift</div>
+        <div class="footer-logo">Dark Hub</div>
         <div class="footer-desc">أدوات • ألعاب • خلفيات • وأكثر</div>
-        <div class="footer-bottom">© 2026 Dark Gift</div>
+        <div class="footer-bottom">© 2026 Dark Hub</div>
       </div>
     </footer>
   </div>
 
-  <div id="page-memory" class="view-page">
-    <div id="mem-winOverlay" class="overlay-modal">
-      <h2>🏆 عاش يا وحش!</h2>
-      <p id="mem-winDesc"></p>
-      <button class="win-btn" onclick="closeMemWin()">جولة جديدة 🔄</button>
-    </div>
-    <div class="eyebrow">تدريب الذاكرة البصرية</div>
-    <h1>طابق <span>الإيموجي</span> 🧠</h1>
-    <div class="hud">
-      <div class="stat-pill stat-moves">المحاولات <b id="mem-moves">0</b></div>
-      <div class="stat-pill stat-matches">الأزواج <b id="mem-matches">0</b>/<b class="mono" id="mem-total">10</b></div>
-      <div class="select-wrap">
-        <select id="mem-difficulty" onchange="resetMemGame()">
-          <option value="easy" selected>سهل (4×5) 🥱</option>
-          <option value="medium">متوسط (5×6) 🤔</option>
-          <option value="hard">صعب (6×6) 🔥</option>
-        </select>
-      </div>
-    </div>
-    <div class="game-grid" id="mem-grid"></div>
-    <div class="actions" style="margin-bottom: 30px;">
-      <button id="mem-reset-btn" onclick="resetMemGame()">إعادة اللعبة 🔄</button>
-      <button class="btn-nav-back" onclick="switchPage('page-menu')">القائمة الرئيسية 📋</button>
-    </div>
-  </div>
-
-  <div id="page-ox" class="view-page">
-    <div id="ox-winOverlay" class="overlay-modal">
-      <h2 id="ox-winTitle">🏆 الفائز!</h2>
-      <p id="ox-winDesc"></p>
-      <button class="win-btn" onclick="resetOxGame()">جولة جديدة 🔄</button>
-    </div>
-    <div class="eyebrow">تحدي الذكاء والتكتيك</div>
-    <h1>لعبة <span>إكس أو</span> ❌⭕</h1>
-    <div class="hud">
-      <div class="stat-pill stat-player">اللاعب (X): <b id="ox-score-x">0</b></div>
-      <div class="stat-pill stat-comp">الخصم (O): <b id="ox-score-o">0</b></div>
-      <div class="select-wrap">
-        <select id="ox-mode" onchange="resetOxGame()">
-          <option value="ai-easy">ضد الكمبيوتر (سهل) 🥱</option>
-          <option value="ai-hard" selected>ضد الكمبيوتر (ذكي) 🧠</option>
-          <option value="pvp">لاعبين (نفس الجهاز) 👥</option>
-        </select>
-      </div>
-    </div>
-    <div class="ox-grid" id="ox-grid"></div>
-    <div class="actions" style="margin-bottom: 30px;">
-      <button class="btn-nav-back" style="color:var(--cyan); border-color:var(--cyan);" onclick="resetOxGame()">جولة جديدة 🔄</button>
-      <button class="btn-nav-back" onclick="switchPage('page-menu')">القائمة الرئيسية 📋</button>
-    </div>
-  </div>
-
-  <div id="page-flappy" class="view-page">
-    <div id="flappy-container">
-      <div class="flappy-score" id="flappy-score-val">0</div>
-      <button class="pause-btn-circle" id="flappy-pause-btn">⏸</button>
-      
-      <div id="flappy-pauseOverlay" class="flappy-screen" style="display:none; z-index:25;">
-        <h2 style="color:var(--cyan); margin-bottom:20px;">⏸ توقف مؤقت</h2>
-        <div style="display:flex; flex-direction:column; gap:10px; width:220px;">
-          <button class="win-btn" id="flappy-resume-btn">استمرار ▶️</button>
-          <button class="btn-nav-back" onclick="switchPage('page-menu')">القائمة الرئيسية 📋</button>
-        </div>
-      </div>
-
-      <div id="flappy-msg-screen" class="flappy-screen">
-        <div class="eyebrow">تحدي رد الفعل السريع</div>
-        <h2 id="flappy-msg-title" style="color:var(--amber);">طير وتحدى أصحابك! 🐦</h2>
-        <p id="flappy-msg-desc" style="color:var(--ink-dim); max-width:280px; line-height:1.6; margin-bottom:20px;">اضغط على الشاشة أو مسطرة الكيبورد Space لتجعل العصفور يطير.</p>
-        <button class="win-btn" id="flappy-start-btn">إبدأ اللعب 🎮</button>
-        <button class="btn-nav-back" style="margin-top:15px;" onclick="switchPage('page-menu')">القائمة الرئيسية 📋</button>
-      </div>
-
-      <div id="flappy-bird"></div>
-    </div>
-  </div>
-
-  <script>
-    /* ==================== إدارة التنقل العام ==================== */
-    function switchPage(pageId) {
-      if (typeof stopFlappyLoop === 'function') stopFlappyLoop();
-
-      document.querySelectorAll('.view-page').forEach(p => p.classList.remove('active'));
-      const activePage = document.getElementById(pageId);
-      activePage.classList.add('active');
-      window.scrollTo(0, 0);
-
-      if (pageId === 'page-memory') resetMemGame();
-      if (pageId === 'page-ox') resetOxGame();
-    }
-
-    /* ==================== 1. منطق كروت الذاكرة ==================== */
-    const memAllEmojis = ['🐱', '🎮', '🚀', '🔥', '💎', '👻', '👑', '🦁', '🦊', '🍕', '🍔', '🎨', '⚽', '🎸', '🪐', '🦄', '🍿', '🎬', '⚡', '🤖'];
-    let memCards = [], memFlipped = [], memMatched = 0, memMoves = 0, memLock = false, memTarget = 10;
-
-    function resetMemGame() {
-      const grid = document.getElementById('mem-grid');
-      const level = document.getElementById('mem-difficulty').value;
-      let rows = 4, cols = 5;
-      if (level === 'medium') { rows = 5; cols = 6; }
-      if (level === 'hard') { rows = 6; cols = 6; }
-
-      memTarget = (rows * cols) / 2;
-      document.getElementById('mem-total').innerText = memTarget;
-      grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-
-      const selected = memAllEmojis.slice(0, memTarget);
-      memCards = [...selected, ...selected].sort(() => Math.random() - 0.5);
-
-      grid.innerHTML = '';
-      memFlipped = []; memMatched = 0; memMoves = 0; memLock = false;
-      document.getElementById('mem-moves').innerText = '0';
-      document.getElementById('mem-matches').innerText = '0';
-
-      memCards.forEach((emoji) => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.setAttribute('data-emoji', emoji);
-        card.innerHTML = `<div class="card-face card-back"></div><div class="card-face card-front">${emoji}</div>`;
-        card.addEventListener('click', flipMemCard);
-        grid.appendChild(card);
-      });
-    }
-
-    function flipMemCard() {
-      if (memLock || this === memFlipped[0] || this.classList.contains('matched')) return;
-      this.classList.add('flipped');
-      memFlipped.push(this);
-
-      if (memFlipped.length === 2) {
-        memMoves++;
-        document.getElementById('mem-moves').innerText = memMoves;
-        const [c1, c2] = memFlipped;
-        if (c1.getAttribute('data-emoji') === c2.getAttribute('data-emoji')) {
-          c1.classList.add('matched'); c2.classList.add('matched');
-          memMatched++;
-          document.getElementById('mem-matches').innerText = memMatched;
-          memFlipped = [];
-          if (memMatched === memTarget) {
-            setTimeout(() => {
-              document.getElementById('mem-winDesc').innerHTML = `خلصت المستوى في <b>${memMoves}</b> محاولة!`;
-              document.getElementById('mem-winOverlay').style.display = 'flex';
-            }, 400);
-          }
-        } else {
-          memLock = true;
-          setTimeout(() => {
-            c1.classList.remove('flipped'); c2.classList.remove('flipped');
-            memFlipped = []; memLock = false;
-          }, 800);
-        }
-      }
-    }
-    function closeMemWin() {
-      document.getElementById('mem-winOverlay').style.display = 'none';
-      resetMemGame();
-    }
-
-    /* ==================== 2. منطق لعبة إكس أو ==================== */
-    let oxBoard = Array(9).fill(null), oxCurrentTurn = 'X', oxActive = true, oxScores = { X: 0, O: 0 };
-    const oxWinPatterns = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-
-    function resetOxGame() {
-      oxBoard = Array(9).fill(null); oxCurrentTurn = 'X'; oxActive = true;
-      const grid = document.getElementById('ox-grid');
-      grid.innerHTML = '';
-      for (let i = 0; i < 9; i++) {
-        const cell = document.createElement('div');
-        cell.className = 'ox-cell';
-        cell.addEventListener('click', () => handleOxCellClick(i));
-        grid.appendChild(cell);
-      }
-      document.getElementById('ox-winOverlay').style.display = 'none';
-    }
-
-    function handleOxCellClick(index) {
-      if (!oxActive || oxBoard[index]) return;
-      makeOxMove(index, oxCurrentTurn);
-      
-      const mode = document.getElementById('ox-mode').value;
-      if (oxActive && mode.startsWith('ai') && oxCurrentTurn === 'O') {
-        setTimeout(makeAIMove, 300);
-      }
-    }
-
-    function makeOxMove(index, player) {
-      oxBoard[index] = player;
-      const cells = document.getElementById('ox-grid').children;
-      cells[index].innerText = player;
-      cells[index].classList.add(player.toLowerCase());
-
-      const winCombo = checkOxWin(player);
-      if (winCombo) {
-        oxActive = false;
-        winCombo.forEach(i => cells[i].classList.add('win'));
-        oxScores[player]++;
-        document.getElementById(`ox-score-${player.toLowerCase()}`).innerText = oxScores[player];
-        setTimeout(() => showOxWinner(player === 'X' ? 'اللاعب X فاز باللقب! 🏆' : 'اللاعب O فاز بالجولة! 🤖'), 500);
-      } else if (oxBoard.every(c => c !== null)) {
-        oxActive = false;
-        setTimeout(() => showOxWinner('تعادل عادل! 🤝'), 400);
-      } else {
-        oxCurrentTurn = oxCurrentTurn === 'X' ? 'O' : 'X';
-      }
-    }
-
-    function checkOxWin(player) {
-      return oxWinPatterns.find(p => p.every(i => oxBoard[i] === player));
-    }
-
-    function showOxWinner(msg) {
-      document.getElementById('ox-winTitle').innerText = msg;
-      document.getElementById('ox-winOverlay').style.display = 'flex';
-    }
-
-    function makeAIMove() {
-      const mode = document.getElementById('ox-mode').value;
-      const emptyIndices = oxBoard.map((v, i) => v === null ? i : null).filter(v => v !== null);
-      if (emptyIndices.length === 0) return;
-
-      let move;
-      if (mode === 'ai-easy') {
-        move = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
-      } else {
-        move = findBestOxMove('O') ?? findBestOxMove('X') ?? (oxBoard[4] === null ? 4 : emptyIndices[Math.floor(Math.random() * emptyIndices.length)]);
-      }
-      makeOxMove(move, 'O');
-    }
-
-    function findBestOxMove(player) {
-      for (let combo of oxWinPatterns) {
-        const pCount = combo.filter(i => oxBoard[i] === player).length;
-        const nullIdx = combo.find(i => oxBoard[i] === null);
-        if (pCount === 2 && nullIdx !== undefined) return nullIdx;
-      }
-      return null;
-    }
-
-    /* ==================== 3. منطق الطائر المغامر ==================== */
-    let flappyActive = false, flappyLoop, flappyPipesTimeout;
-    let flappyY = 200, flappyVelocity = 0, flappyGravity = 0.35, flappyJump = -6.5, flappyScore = 0;
-    let flappyPipes = [], flappySpeed = 3.0, flappyGap = 165;
-
-    const flappyBird = document.getElementById('flappy-bird');
-    const flappyContainer = document.getElementById('flappy-container');
-
-    function startFlappyGame() {
-      const h = flappyContainer.clientHeight;
-      flappyY = h / 3; flappyVelocity = 0; flappyScore = 0; flappySpeed = 3.0; flappyGap = 165;
-      document.getElementById('flappy-score-val').innerText = '0';
-      document.getElementById('flappy-msg-screen').style.display = 'none';
-      document.getElementById('flappy-pauseOverlay').style.display = 'none';
-
-      flappyPipes.forEach(p => p.el.remove());
-      flappyPipes = [];
-      flappyActive = true;
-
-      clearInterval(flappyLoop);
-      clearTimeout(flappyPipesTimeout);
-      flappyLoop = setInterval(updateFlappy, 20);
-      flappyPipesTimeout = setTimeout(createFlappyPipe, 300);
-    }
-
-    function flappyDoJump() {
-      if (!flappyActive) return;
-      flappyVelocity = flappyJump;
-      flappyBird.style.transform = "rotate(-25deg)";
-    }
-
-    document.getElementById('flappy-start-btn').addEventListener('click', startFlappyGame);
-    document.getElementById('flappy-pause-btn').addEventListener('click', () => {
-      if (!flappyActive) return;
-      flappyActive = false;
-      clearInterval(flappyLoop); clearTimeout(flappyPipesTimeout);
-      document.getElementById('flappy-pauseOverlay').style.display = 'flex';
-    });
-    document.getElementById('flappy-resume-btn').addEventListener('click', () => {
-      flappyActive = true;
-      document.getElementById('flappy-pauseOverlay').style.display = 'none';
-      flappyLoop = setInterval(updateFlappy, 20);
-      flappyPipesTimeout = setTimeout(createFlappyPipe, 1200);
-    });
-
-    flappyContainer.addEventListener('pointerdown', (e) => {
-      if (!e.target.closest('button')) flappyDoJump();
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.code === 'Space' && document.getElementById('page-flappy').classList.contains('active')) {
-        e.preventDefault(); flappyDoJump();
-      }
-    });
-
-    function createFlappyPipe() {
-      if (!flappyActive) return;
-      const h = flappyContainer.clientHeight, w = flappyContainer.clientWidth;
-      const topH = Math.floor(Math.random() * (h - flappyGap - 120)) + 60;
-      const botH = h - flappyGap - topH;
-
-      const tPipe = document.createElement('div'); tPipe.className = 'flappy-pipe';
-      tPipe.style.height = topH + 'px'; tPipe.style.top = '0px'; tPipe.style.left = w + 'px';
-      const bPipe = document.createElement('div'); bPipe.className = 'flappy-pipe';
-      bPipe.style.height = botH + 'px'; bPipe.style.bottom = '0px'; bPipe.style.left = w + 'px';
-
-      flappyContainer.appendChild(tPipe); flappyContainer.appendChild(bPipe);
-      flappyPipes.push({ el: tPipe, x: w, type: 'top', passed: false }, { el: bPipe, x: w, type: 'bot', passed: false });
-
-      flappyPipesTimeout = setTimeout(createFlappyPipe, 1600);
-    }
-
-    function updateFlappy() {
-      const h = flappyContainer.clientHeight;
-      flappyVelocity += flappyGravity;
-      flappyY += flappyVelocity;
-      flappyBird.style.top = flappyY + 'px';
-      if (flappyVelocity > 3) flappyBird.style.transform = "rotate(35deg)";
-
-      if (flappyY < 0 || flappyY > h - 30) { endFlappy(); return; }
-
-      const bL = flappyBird.offsetLeft;
-      for (let i = flappyPipes.length - 1; i >= 0; i--) {
-        let p = flappyPipes[i];
-        p.x -= flappySpeed;
-        p.el.style.left = p.x + 'px';
-
-        if (p.x < (bL + 38) && (p.x + 65) > bL &&
-           ((p.type === 'top' && flappyY < parseInt(p.el.style.height)) ||
-            (p.type === 'bot' && flappyY + 30 > (h - parseInt(p.el.style.height))))) {
-          endFlappy(); return;
-        }
-
-        if (p.type === 'top' && !p.passed && (p.x + 65) < bL) {
-          p.passed = true; flappyScore++;
-          document.getElementById('flappy-score-val').innerText = flappyScore;
-        }
-        if (p.x < -70) { p.el.remove(); flappyPipes.splice(i, 1); }
-      }
-    }
-
-    function endFlappy() {
-      flappyActive = false;
-      clearInterval(flappyLoop); clearTimeout(flappyPipesTimeout);
-      document.getElementById('flappy-msg-title').innerText = "جيم أوفر! 💥";
-      document.getElementById('flappy-msg-desc').innerHTML = `السكور بتاعك: <b>${flappyScore}</b>`;
-      document.getElementById('flappy-start-btn').innerText = "إعادة المحاولة 🔄";
-      document.getElementById('flappy-msg-screen').style.display = 'flex';
-    }
-
-    function stopFlappyLoop() {
-      flappyActive = false; clearInterval(flappyLoop); clearTimeout(flappyPipesTimeout);
-    }
-  </script>
 </body>
 </html>
